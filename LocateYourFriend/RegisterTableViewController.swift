@@ -10,18 +10,17 @@ import UIKit
 
 class RegisterTableViewController: UITableViewController {
     
+    @IBOutlet weak var userFirstNameTextField: UITextField!
     @IBOutlet weak var userPasswordTextField: UITextField!
     @IBOutlet weak var userEmailTextField: UITextField!
     @IBOutlet weak var userRetapePasswordTextField: UITextField!
+    @IBOutlet weak var userNameTextField: UITextField!
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        tableView.backgroundView = UIImageView(image: UIImage(named: "fond"))
         
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-        
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem()
     }
     
     override func didReceiveMemoryWarning() {
@@ -38,7 +37,7 @@ class RegisterTableViewController: UITableViewController {
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return 4
+        return 6
     }
     
     
@@ -47,9 +46,11 @@ class RegisterTableViewController: UITableViewController {
         let userEmail = userEmailTextField.text
         let userPassword = userPasswordTextField.text
         let userRetapePassword = userRetapePasswordTextField.text
+        let userName = userNameTextField.text
+        let userFirstName = userFirstNameTextField.text
         
         
-        if(userEmail!.isEmpty || userPassword!.isEmpty ){
+        if(userEmail!.isEmpty || userPassword!.isEmpty ||  userName!.isEmpty || userFirstName!.isEmpty ){
             // Affiche un message d'erreur
             afficheMessageAlert("Tous les champs doivent être remplis");
             return;
@@ -68,9 +69,9 @@ class RegisterTableViewController: UITableViewController {
         
         let session = NSURLSession.sharedSession()
         
-        let postParams : [String: AnyObject] = ["email": userEmail!,"password":userPassword!]
+        let postParams : [String: AnyObject] = ["email":userEmail!,"password":userPassword!,"name":userName!,"firstName":userFirstName!]
         
-        
+        print("les post param: \(postParams)")
         
         // On créé la requete
         
@@ -80,11 +81,9 @@ class RegisterTableViewController: UITableViewController {
         
         request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")
         
-        do {
+          do {
             
             request.HTTPBody = try NSJSONSerialization.dataWithJSONObject(postParams, options: NSJSONWritingOptions())
-            
-            
             
         } catch {
             
@@ -93,6 +92,7 @@ class RegisterTableViewController: UITableViewController {
         }
         
         
+        print("request : \(request)")
         
         // On appelle le post
         
@@ -120,7 +120,19 @@ class RegisterTableViewController: UITableViewController {
                 
                 print("le POST: " + postString)
                 
-                self.performSelectorOnMainThread("updatePostLabel:", withObject: postString, waitUntilDone: false)
+                
+                // Si la connexion est réussi on redirige vers connexion
+                
+                if(postString == "Inscription ok"){
+                    
+                }else{
+                    self.afficheMessageAlert("L'inscription ne s'est pas effectuée")
+                    return
+                }
+                
+               
+
+                //self.performSelectorOnMainThread("updatePostLabel:", withObject: postString, waitUntilDone: false)
                 
             }
             
@@ -128,7 +140,12 @@ class RegisterTableViewController: UITableViewController {
             
         }).resume()
         
+        
+        
+        
     }
+    
+    
     
     
     func afficheMessageAlert(message : String){

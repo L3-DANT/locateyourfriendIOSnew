@@ -58,6 +58,11 @@ class MapViewController: UIViewController,MKMapViewDelegate, CLLocationManagerDe
     }
     
     
+    @IBAction func deconnexionAction(sender: AnyObject) {
+        NSUserDefaults.standardUserDefaults().setBool(false, forKey: "isUserLogin")
+        self.performSegueWithIdentifier("loginView", sender: self)
+        
+    }
     
     
     func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation])
