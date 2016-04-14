@@ -167,37 +167,6 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" id="dvO-mj-FJc">
-                                        <rect key="frame" x="0.0" y="88" width="375" height="44"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFit" tableViewCell="dvO-mj-FJc" id="LHU-S6-btO">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="user" translatesAutoresizingMaskIntoConstraints="NO" id="Vsr-xr-G2a">
-                                                    <rect key="frame" x="11" y="10.5" width="29" height="29"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="width" constant="29" id="3K8-YY-bIf"/>
-                                                        <constraint firstAttribute="height" constant="29" id="qu5-o1-qCK"/>
-                                                    </constraints>
-                                                </imageView>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Deconnexion" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4iE-BL-tR3">
-                                                    <rect key="frame" x="58" y="7" width="309" height="29"/>
-                                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="23"/>
-                                                    <color key="textColor" red="0.093837462365627289" green="0.087236739695072174" blue="0.49089980125427246" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                            </subviews>
-                                            <constraints>
-                                                <constraint firstAttribute="trailingMargin" secondItem="4iE-BL-tR3" secondAttribute="trailing" id="7e2-5G-ehK"/>
-                                                <constraint firstItem="4iE-BL-tR3" firstAttribute="leading" secondItem="Vsr-xr-G2a" secondAttribute="trailing" constant="18" id="HEN-q7-dxb"/>
-                                                <constraint firstItem="Vsr-xr-G2a" firstAttribute="centerY" secondItem="LHU-S6-btO" secondAttribute="centerY" id="OlN-iQ-T1z"/>
-                                                <constraint firstItem="Vsr-xr-G2a" firstAttribute="leading" secondItem="LHU-S6-btO" secondAttribute="leadingMargin" constant="3" id="foy-Kl-RVx"/>
-                                                <constraint firstItem="4iE-BL-tR3" firstAttribute="height" secondItem="Vsr-xr-G2a" secondAttribute="height" id="oCy-vt-5Bb"/>
-                                                <constraint firstItem="4iE-BL-tR3" firstAttribute="centerY" secondItem="Vsr-xr-G2a" secondAttribute="centerY" id="tHZ-Pw-AXS"/>
-                                            </constraints>
-                                        </tableViewCellContentView>
-                                    </tableViewCell>
                                 </cells>
                             </tableViewSection>
                         </sections>
@@ -263,7 +232,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4kg-f3-10U" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="678.5" y="873.5"/>
+            <point key="canvasLocation" x="484.5" y="873.5"/>
         </scene>
         <!--Login Table View Controller-->
         <scene sceneID="INV-7d-8a2">
@@ -293,7 +262,7 @@
                                         <color key="titleColor" red="0.18681644" green="0.4981502116" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                     </state>
                                     <connections>
-                                        <segue destination="8vu-bd-JFZ" kind="presentation" identifier="registerView" id="wS2-z1-QOR"/>
+                                        <segue destination="8vu-bd-JFZ" kind="presentation" identifier="registerView" id="mv5-fP-CSx"/>
                                     </connections>
                                 </button>
                             </subviews>
@@ -439,6 +408,9 @@
                                     <state key="normal" title="J'ai déjà un compte. Se connecter.">
                                         <color key="titleColor" red="0.18681644" green="0.4981502116" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                     </state>
+                                    <connections>
+                                        <segue destination="1sH-LF-5WF" kind="unwind" unwindAction="jaiUnCompte:" id="Zj8-xQ-r1z"/>
+                                    </connections>
                                 </button>
                             </subviews>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -618,6 +590,7 @@
                                                     </state>
                                                     <connections>
                                                         <action selector="registrationButtonTapped:" destination="8vu-bd-JFZ" eventType="touchUpInside" id="fsN-zA-IBv"/>
+                                                        <segue destination="1sH-LF-5WF" kind="unwind" unwindAction="unwindRegistrationButtonTapped:" id="K7J-EP-Clw"/>
                                                     </connections>
                                                 </button>
                                             </subviews>
@@ -647,6 +620,7 @@
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dpB-1X-W1C" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="1sH-LF-5WF" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="2162.5" y="-163.5"/>
         </scene>

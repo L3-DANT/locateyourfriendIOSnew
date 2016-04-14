@@ -62,8 +62,7 @@ class LoginTableViewController: UITableViewController {
         
         let session = NSURLSession.sharedSession()
         
-        let postParams : [String: AnyObject] = ["email": userEmail!,"password":userPassword!]
-        
+        let postParams : [String: AnyObject] = ["email":userEmail!,"motDePasse":userPassword!]
         
         
         // On créé la requete
@@ -90,16 +89,13 @@ class LoginTableViewController: UITableViewController {
         
         session.dataTaskWithRequest(request, completionHandler: { ( data: NSData?, response: NSURLResponse?, error: NSError?) -> Void in
             
-            // On vérifie qu'on recoit une reponse
+            // On vérifie qu'on recoit une reponse et qu'on se connecte bien au serveur
             
             guard let realResponse = response as? NSHTTPURLResponse where
                 
                 realResponse.statusCode == 200 else {
-                    
-                    print("Ce n'est pas une réponse 200 -> Marche pas")
-                    
+                    print("Ce n'est pas une réponse 200 -> Connexion au serveur ECHOUEE")
                     return
-                    
             }
             
             
@@ -112,18 +108,15 @@ class LoginTableViewController: UITableViewController {
                 
                 print("le POST: " + postString)
                 
-                //Si la réponse du serveur est connexion ok on dit que le client est connecté
                 
-                if postString == "{Connexion ok}"{
-                    NSUserDefaults.standardUserDefaults().setBool(true, forKey:"isUserLogin")
-                    self.performSegueWithIdentifier("mapView", sender: self)
-                    
-                   /* let secondViewController:RevealViewController = MapViewController()
-                    self.presentViewController(secondViewController, animated: true, completion: nil)*/
-
+                if(postString != "{Connexion ok}"){
+                    self.afficheMessageAlert("Votre identifiant ou votre mot de passe est erroné")
                 }else{
-                    print("Ce n'est pas la bonne réponse")
+                    self.dismissViewControllerAnimated(true, completion: nil)
+                    // on redirige vers la map
+                    
                 }
+                //self.performSelectorOnMainThread("updatePostLabel:", withObject: postString, waitUntilDone: false)
                 
             }
             
@@ -137,6 +130,8 @@ class LoginTableViewController: UITableViewController {
 
     }
     
+    
+
     
     func afficheMessageAlert(message : String){
         let myAlert = UIAlertController(title:"Attention", message : message, preferredStyle: UIAlertControllerStyle.Alert);

@@ -41,7 +41,7 @@ class RegisterTableViewController: UITableViewController {
     }
     
     
-    @IBAction func registrationButtonTapped(sender: AnyObject) {
+    @IBAction func registrationButtonTapped(unwindSegue: UIStoryboardSegue) {
         
         let userEmail = userEmailTextField.text
         let userPassword = userPasswordTextField.text
@@ -63,15 +63,14 @@ class RegisterTableViewController: UITableViewController {
         
         // On fait la session
         
-        let postEndpoint: String = "http://localhost:8080/locateyourfriend/rest/bienvenue/bienvenueJSON"
+        let postEndpoint: String = "http://172.20.10.3:8080/locateyourfriend/rest/bienvenue/bienvenueJSON"
         
         let url = NSURL(string: postEndpoint)!
         
         let session = NSURLSession.sharedSession()
         
-        let postParams : [String: AnyObject] = ["email":userEmail!,"password":userPassword!,"name":userName!,"firstName":userFirstName!]
+        let postParams : [String: AnyObject] = ["email":userEmail!,"motDePasse":userPassword!,"nom":userName!,"prenom":userFirstName!]
         
-        print("les post param: \(postParams)")
         
         // On créé la requete
         
@@ -81,34 +80,30 @@ class RegisterTableViewController: UITableViewController {
         
         request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")
         
-          do {
+         do {
             
             request.HTTPBody = try NSJSONSerialization.dataWithJSONObject(postParams, options: NSJSONWritingOptions())
             
         } catch {
             
             print("bad things happened")
-            
+    
         }
         
         
-        print("request : \(request)")
         
         // On appelle le post
         
         session.dataTaskWithRequest(request, completionHandler: { ( data: NSData?, response: NSURLResponse?, error: NSError?) -> Void in
             
-            // On vérifie qu'on recoit une reponse
+            // On vérifie qu'on recoit une reponse et qu'on se connecte bien au serveur
             
-            guard let realResponse = response as? NSHTTPURLResponse where
+         /*   guard let realResponse = response as? NSHTTPURLResponse where
                 
                 realResponse.statusCode == 200 else {
-                    
-                    print("Ce n'est pas une réponse 200 -> MArche pas")
-                    
+                    print("Ce n'est pas une réponse 200 -> Connexion au serveur ECHOUEE")
                     return
-                    
-            }
+            }*/
             
             
             
@@ -121,17 +116,13 @@ class RegisterTableViewController: UITableViewController {
                 print("le POST: " + postString)
                 
                 
-                // Si la connexion est réussi on redirige vers connexion
-                
-                if(postString == "Inscription ok"){
-                    
+                if(postString != "{Inscription ok}"){
+                    self.afficheMessageAlert("L'inscription n'a pas pu être effectuée")
                 }else{
-                    self.afficheMessageAlert("L'inscription ne s'est pas effectuée")
-                    return
+                     NSUserDefaults.standardUserDefaults().setBool(true, forKey: "isUserLogin")
+                     self.dismissViewControllerAnimated(true, completion: nil)
+                    
                 }
-                
-               
-
                 //self.performSelectorOnMainThread("updatePostLabel:", withObject: postString, waitUntilDone: false)
                 
             }
@@ -142,13 +133,12 @@ class RegisterTableViewController: UITableViewController {
         
         
         
-        
     }
     
     
-    
-    
-    func afficheMessageAlert(message : String){
+    @IBAction func jaiUnCompte(unwindSegue: UIStoryboardSegue) {
+    }
+        func afficheMessageAlert(message : String){
         let myAlert = UIAlertController(title:"Alert", message : message, preferredStyle: UIAlertControllerStyle.Alert);
         
         let okAction = UIAlertAction(title:"ok",style:UIAlertActionStyle.Default, handler:nil);
