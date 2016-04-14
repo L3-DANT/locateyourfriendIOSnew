@@ -14,6 +14,8 @@ class LoginTableViewController: UITableViewController {
     @IBOutlet weak var userEmailTextField: UITextField!
     override func viewDidLoad() {
         super.viewDidLoad()
+        tableView.backgroundView = UIImageView(image: UIImage(named: "fond"))
+
 
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
@@ -50,25 +52,86 @@ class LoginTableViewController: UITableViewController {
             return;
         }
             
-            let userEmailStored = NSUserDefaults.standardUserDefaults().stringForKey("userEmail");
-            let userPasswordStored = NSUserDefaults.standardUserDefaults().stringForKey("userPassword");
-            
-            if(userEmailStored == userEmail){
-                if(userPasswordStored == userPassword){
-                    // Conenxion réussie
-                    NSUserDefaults.standardUserDefaults().setBool(true, forKey: "isUserLogin");
-                    NSUserDefaults.standardUserDefaults().synchronize();
                     
-                    self.dismissViewControllerAnimated(true, completion: nil);
-                }
-            }
+        
+        // On fait la session
+        
+        let postEndpoint: String = "http://localhost:8080/locateyourfriend/rest/bienvenue/bienvenueJSON"
+        
+        let url = NSURL(string: postEndpoint)!
+        
+        let session = NSURLSession.sharedSession()
+        
+        let postParams : [String: AnyObject] = ["email":userEmail!,"motDePasse":userPassword!]
         
         
+        // On créé la requete
+        
+        let request = NSMutableURLRequest(URL: url)
+        
+        request.HTTPMethod = "POST"
+        
+        request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")
+        
+        do {
             
+            request.HTTPBody = try NSJSONSerialization.dataWithJSONObject(postParams, options: NSJSONWritingOptions())
+            
+        } catch {
+            
+            print("bad things happened")
+            
+        }
+        
+        
+        
+        // On appelle le post
+        
+        session.dataTaskWithRequest(request, completionHandler: { ( data: NSData?, response: NSURLResponse?, error: NSError?) -> Void in
+            
+            // On vérifie qu'on recoit une reponse et qu'on se connecte bien au serveur
+            
+            guard let realResponse = response as? NSHTTPURLResponse where
+                
+                realResponse.statusCode == 200 else {
+                    print("Ce n'est pas une réponse 200 -> Connexion au serveur ECHOUEE")
+                    return
+            }
+            
+            
+            
+            // On lit le json
+            
+            if let postString = NSString(data:data!, encoding: NSUTF8StringEncoding) as? String {
+                
+                
+                
+                print("le POST: " + postString)
+                
+                
+                if(postString != "{Connexion ok}"){
+                    self.afficheMessageAlert("Votre identifiant ou votre mot de passe est erroné")
+                }else{
+                    self.dismissViewControllerAnimated(true, completion: nil)
+                    // on redirige vers la map
+                    
+                }
+                //self.performSelectorOnMainThread("updatePostLabel:", withObject: postString, waitUntilDone: false)
+                
+            }
+            
+            
+            
+        }).resume()
+        
+
+        
 
 
     }
     
+    
+
     
     func afficheMessageAlert(message : String){
         let myAlert = UIAlertController(title:"Attention", message : message, preferredStyle: UIAlertControllerStyle.Alert);
