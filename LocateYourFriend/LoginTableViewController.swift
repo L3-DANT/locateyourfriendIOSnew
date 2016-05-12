@@ -89,7 +89,7 @@ class LoginTableViewController: UITableViewController {
         
         session.dataTaskWithRequest(request, completionHandler: { ( data: NSData?, response: NSURLResponse?, error: NSError?) -> Void in
             
-            // On vérifie qu'on recoit une reponse et qu'on se connecte bien au serveur
+            // On vérifie qu'on recoit une reponse et qu'on se connecte bien au serveurr
             
             guard let realResponse = response as? NSHTTPURLResponse where
                 
