@@ -12,7 +12,6 @@
 		BAE00BD61C943B060016BC78 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BAE00BD41C943B060016BC78 /* Main.storyboard */; };
 		BAE00BD91C943B060016BC78 /* LocateYourFriend.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = BAE00BD71C943B060016BC78 /* LocateYourFriend.xcdatamodeld */; };
 		BAE00BDB1C943B060016BC78 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BAE00BDA1C943B060016BC78 /* Assets.xcassets */; };
-		BAE00BDE1C943B060016BC78 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BAE00BDC1C943B060016BC78 /* LaunchScreen.storyboard */; };
 		BAE00BE91C943B060016BC78 /* LocateYourFriendTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAE00BE81C943B060016BC78 /* LocateYourFriendTests.swift */; };
 		BAE00BF41C943B060016BC78 /* LocateYourFriendUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAE00BF31C943B060016BC78 /* LocateYourFriendUITests.swift */; };
 		BAE00C021C943C1B0016BC78 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAE00C011C943C1B0016BC78 /* MapViewController.swift */; };
@@ -23,6 +22,8 @@
 		BAFF51951CE4C9650063E6A7 /* Utilisateur.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAFF51941CE4C9650063E6A7 /* Utilisateur.swift */; };
 		BAFF51981CE4C9810063E6A7 /* UtilisateurDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAFF51971CE4C9810063E6A7 /* UtilisateurDTO.swift */; };
 		BAFF519C1CE4D4850063E6A7 /* Amis.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAFF519B1CE4D4850063E6A7 /* Amis.swift */; };
+		BAFF51A81CE9F0C20063E6A7 /* MesInformationsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAFF51A71CE9F0C20063E6A7 /* MesInformationsTableViewController.swift */; };
+		BAFF51AA1CEA018D0063E6A7 /* ChangePasswordTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAFF51A91CEA018D0063E6A7 /* ChangePasswordTableViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,7 +50,6 @@
 		BAE00BD51C943B060016BC78 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		BAE00BD81C943B060016BC78 /* LocateYourFriend.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = LocateYourFriend.xcdatamodel; sourceTree = "<group>"; };
 		BAE00BDA1C943B060016BC78 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		BAE00BDD1C943B060016BC78 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		BAE00BDF1C943B060016BC78 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BAE00BE41C943B060016BC78 /* LocateYourFriendTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = LocateYourFriendTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		BAE00BE81C943B060016BC78 /* LocateYourFriendTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocateYourFriendTests.swift; sourceTree = "<group>"; };
@@ -67,6 +67,8 @@
 		BAFF51941CE4C9650063E6A7 /* Utilisateur.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utilisateur.swift; sourceTree = "<group>"; };
 		BAFF51971CE4C9810063E6A7 /* UtilisateurDTO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UtilisateurDTO.swift; sourceTree = "<group>"; };
 		BAFF519B1CE4D4850063E6A7 /* Amis.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Amis.swift; sourceTree = "<group>"; };
+		BAFF51A71CE9F0C20063E6A7 /* MesInformationsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MesInformationsTableViewController.swift; sourceTree = "<group>"; };
+		BAFF51A91CEA018D0063E6A7 /* ChangePasswordTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChangePasswordTableViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -127,12 +129,13 @@
 				BAE00C8E1C9556A30016BC78 /* RegisterTableViewController.swift */,
 				BAE00BD41C943B060016BC78 /* Main.storyboard */,
 				BAE00BDA1C943B060016BC78 /* Assets.xcassets */,
-				BAE00BDC1C943B060016BC78 /* LaunchScreen.storyboard */,
 				BAE00BDF1C943B060016BC78 /* Info.plist */,
 				BAE00BD71C943B060016BC78 /* LocateYourFriend.xcdatamodeld */,
 				BAFF51941CE4C9650063E6A7 /* Utilisateur.swift */,
 				BAFF51971CE4C9810063E6A7 /* UtilisateurDTO.swift */,
 				BAFF519B1CE4D4850063E6A7 /* Amis.swift */,
+				BAFF51A71CE9F0C20063E6A7 /* MesInformationsTableViewController.swift */,
+				BAFF51A91CEA018D0063E6A7 /* ChangePasswordTableViewController.swift */,
 			);
 			path = LocateYourFriend;
 			sourceTree = "<group>";
@@ -269,7 +272,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BAE00BDE1C943B060016BC78 /* LaunchScreen.storyboard in Resources */,
 				BAE00BDB1C943B060016BC78 /* Assets.xcassets in Resources */,
 				BAE00BD61C943B060016BC78 /* Main.storyboard in Resources */,
 			);
@@ -301,11 +303,13 @@
 				BAE00C8F1C9556A30016BC78 /* RegisterTableViewController.swift in Sources */,
 				BAE00BD31C943B060016BC78 /* ViewController.swift in Sources */,
 				BAE00BD11C943B060016BC78 /* AppDelegate.swift in Sources */,
+				BAFF51AA1CEA018D0063E6A7 /* ChangePasswordTableViewController.swift in Sources */,
 				BAE00C981C9562BE0016BC78 /* SWRevealViewController.m in Sources */,
 				BAE00BD91C943B060016BC78 /* LocateYourFriend.xcdatamodeld in Sources */,
 				BAE00C021C943C1B0016BC78 /* MapViewController.swift in Sources */,
 				BAE00C871C944A000016BC78 /* LoginTableViewController.swift in Sources */,
 				BAFF51951CE4C9650063E6A7 /* Utilisateur.swift in Sources */,
+				BAFF51A81CE9F0C20063E6A7 /* MesInformationsTableViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -347,14 +351,6 @@
 				BAE00BD51C943B060016BC78 /* Base */,
 			);
 			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
-		BAE00BDC1C943B060016BC78 /* LaunchScreen.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				BAE00BDD1C943B060016BC78 /* Base */,
-			);
-			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */

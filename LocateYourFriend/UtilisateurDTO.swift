@@ -20,4 +20,11 @@ class UtilisateurDTO{
         self.localisation = utilisateurDTO.localisation
     }
     
+    init(nom : String, prenom : String, email : String, localisation : CLLocationCoordinate2D){
+        self.nom = nom
+        self.prenom = prenom
+        self.email = email
+        self.localisation = localisation
+    }
+    
 }

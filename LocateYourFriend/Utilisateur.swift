@@ -1,3 +1,4 @@
+import CoreLocation
 class Utilisateur {
     static let utilisateur = Utilisateur()
     
@@ -27,7 +28,9 @@ class Utilisateur {
         motDePasse = param["motDePasse"] as! String
         
         if(param["mesAmis"] == nil){
-            mesAmis = Amis()
+            //mesAmis = Amis()
+            mesAmis = Amis(mesAmis: [UtilisateurDTO(nom: "DUPONT",prenom: "Laura",email: "laura.dupont@gmail.com", localisation: CLLocationCoordinate2DMake(48.95,2.3833))])
+            
         }else{
             mesAmis = Amis(mesAmis: param["mesAmis"]! as![UtilisateurDTO])
         }

@@ -54,11 +54,11 @@ class MapViewController: UIViewController,MKMapViewDelegate, CLLocationManagerDe
     
     override func viewDidAppear(animated: Bool) {
         
-        let myAnnotation = MKPointAnnotation()
+       /* let myAnnotation = MKPointAnnotation()
         myAnnotation.coordinate = (locationManager.location?.coordinate)!
         myAnnotation.title = "Ma position"
         
-        mapView.addAnnotation(myAnnotation)
+        mapView.addAnnotation(myAnnotation)*/
         
         for amis in Utilisateur.utilisateur.mesAmis.mesAmis {
             
