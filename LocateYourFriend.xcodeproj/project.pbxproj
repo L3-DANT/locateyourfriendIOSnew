@@ -24,6 +24,7 @@
 		BAFF519C1CE4D4850063E6A7 /* Amis.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAFF519B1CE4D4850063E6A7 /* Amis.swift */; };
 		BAFF51A81CE9F0C20063E6A7 /* MesInformationsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAFF51A71CE9F0C20063E6A7 /* MesInformationsTableViewController.swift */; };
 		BAFF51AA1CEA018D0063E6A7 /* ChangePasswordTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAFF51A91CEA018D0063E6A7 /* ChangePasswordTableViewController.swift */; };
+		BAFF51AC1CEB9C6A0063E6A7 /* MesAmisTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAFF51AB1CEB9C6A0063E6A7 /* MesAmisTableViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -69,6 +70,7 @@
 		BAFF519B1CE4D4850063E6A7 /* Amis.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Amis.swift; sourceTree = "<group>"; };
 		BAFF51A71CE9F0C20063E6A7 /* MesInformationsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MesInformationsTableViewController.swift; sourceTree = "<group>"; };
 		BAFF51A91CEA018D0063E6A7 /* ChangePasswordTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChangePasswordTableViewController.swift; sourceTree = "<group>"; };
+		BAFF51AB1CEB9C6A0063E6A7 /* MesAmisTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MesAmisTableViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -134,6 +136,7 @@
 				BAFF51941CE4C9650063E6A7 /* Utilisateur.swift */,
 				BAFF51971CE4C9810063E6A7 /* UtilisateurDTO.swift */,
 				BAFF519B1CE4D4850063E6A7 /* Amis.swift */,
+				BAFF51AB1CEB9C6A0063E6A7 /* MesAmisTableViewController.swift */,
 				BAFF51A71CE9F0C20063E6A7 /* MesInformationsTableViewController.swift */,
 				BAFF51A91CEA018D0063E6A7 /* ChangePasswordTableViewController.swift */,
 			);
@@ -299,6 +302,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				BAFF51981CE4C9810063E6A7 /* UtilisateurDTO.swift in Sources */,
+				BAFF51AC1CEB9C6A0063E6A7 /* MesAmisTableViewController.swift in Sources */,
 				BAFF519C1CE4D4850063E6A7 /* Amis.swift in Sources */,
 				BAE00C8F1C9556A30016BC78 /* RegisterTableViewController.swift in Sources */,
 				BAE00BD31C943B060016BC78 /* ViewController.swift in Sources */,

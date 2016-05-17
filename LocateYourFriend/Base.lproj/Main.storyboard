@@ -135,6 +135,9 @@
                                                 <constraint firstAttribute="trailingMargin" secondItem="3MS-sI-ypB" secondAttribute="trailing" id="qNt-eg-f5H"/>
                                             </constraints>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <segue destination="iLp-eo-yZD" kind="presentation" id="Quh-cN-bdd"/>
+                                        </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" id="LAB-BU-ld2">
                                         <rect key="frame" x="0.0" y="44" width="375" height="44"/>
@@ -167,7 +170,7 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <segue destination="yeN-AA-9AY" kind="presentation" id="eff-CP-Q5P"/>
+                                            <segue destination="yeN-AA-9AY" kind="presentation" id="w50-Z4-xrw"/>
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" id="6oy-Fo-jLP">
@@ -506,6 +509,68 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3y4-rG-3vi" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="613" y="889"/>
+        </scene>
+        <!--Mes Amis Table View Controller-->
+        <scene sceneID="izn-0O-gVD">
+            <objects>
+                <tableViewController id="iLp-eo-yZD" customClass="MesAmisTableViewController" customModule="LocateYourFriend" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="6yT-eD-of0">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <searchBar key="tableHeaderView" contentMode="redraw" placeholder="Rechercher un ami..." id="R4T-tj-s9q">
+                            <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                            <textInputTraits key="textInputTraits"/>
+                            <scopeButtonTitles>
+                                <string>Title</string>
+                            </scopeButtonTitles>
+                            <connections>
+                                <outlet property="delegate" destination="iLp-eo-yZD" id="KV9-Qx-jz2"/>
+                            </connections>
+                        </searchBar>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="cell" textLabel="11A-bE-NvS" style="IBUITableViewCellStyleDefault" id="sAJ-ua-y0v">
+                                <rect key="frame" x="0.0" y="72" width="414" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="sAJ-ua-y0v" id="Iqp-It-UbG">
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="11A-bE-NvS">
+                                            <rect key="frame" x="15" y="0.0" width="384" height="44"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="iLp-eo-yZD" id="xmF-vG-KBM"/>
+                            <outlet property="delegate" destination="iLp-eo-yZD" id="3v4-jn-IMg"/>
+                        </connections>
+                    </tableView>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina55"/>
+                    <connections>
+                        <outlet property="myTableView" destination="6yT-eD-of0" id="TSn-Ow-zSr"/>
+                        <outlet property="searchDisplayController" destination="ycg-52-V2s" id="0e3-pA-cmJ"/>
+                    </connections>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="svG-Hy-BF4" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <searchDisplayController id="ycg-52-V2s">
+                    <connections>
+                        <outlet property="delegate" destination="iLp-eo-yZD" id="dDd-bq-xTL"/>
+                        <outlet property="searchBar" destination="R4T-tj-s9q" id="1xa-Oh-ltO"/>
+                        <outlet property="searchContentsController" destination="iLp-eo-yZD" id="10c-ln-5Eb"/>
+                        <outlet property="searchResultsDataSource" destination="iLp-eo-yZD" id="3Oq-GG-XLm"/>
+                        <outlet property="searchResultsDelegate" destination="iLp-eo-yZD" id="KGQ-Tl-d6w"/>
+                    </connections>
+                </searchDisplayController>
+            </objects>
+            <point key="canvasLocation" x="1208" y="763"/>
         </scene>
         <!--Change Password Table View Controller-->
         <scene sceneID="kz6-Wh-38z">
