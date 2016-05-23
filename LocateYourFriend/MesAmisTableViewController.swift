@@ -16,11 +16,19 @@ class MesAmisTableViewController: UITableViewController, UISearchBarDelegate, UI
     var amisFiltres = [UtilisateurDTO]()
   
 
-    
+    @IBOutlet weak var menuButton: UIBarButtonItem!
+
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+        if self.revealViewController() != nil {
+            menuButton.target = self.revealViewController()
+            menuButton.action = #selector(SWRevealViewController.revealToggle(_:))
+            self.view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
+            
+        }
+        
         
         usr.mesAmis.mesAmis += [UtilisateurDTO(nom: "DUPONT",prenom: "Laura",email: "laura.dupont@gmail.com", localisation: CLLocationCoordinate2DMake(48.95,2.3833))]
            usr.mesAmis.mesAmis += [UtilisateurDTO(nom: "MARTIN",prenom: "Laura",email: "laura.dupont@gmail.com", localisation: CLLocationCoordinate2DMake(48.95,2.3833))]
@@ -83,6 +91,8 @@ class MesAmisTableViewController: UITableViewController, UISearchBarDelegate, UI
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath)
     {
+        
+        performSegueWithIdentifier("showDetails", sender: indexPath)
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
         
         var ami: UtilisateurDTO
@@ -101,7 +111,14 @@ class MesAmisTableViewController: UITableViewController, UISearchBarDelegate, UI
         
     }
     
-    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        
+        let rowSelected = (sender as! NSIndexPath).row
+        if let destinationVC = segue.destinationViewController as? DetailsAmiViewController{
+            destinationVC.usr = usr.mesAmis.mesAmis[rowSelected]
+           
+        }
+    }
     
     
     func filterContetnForSearchText(searchText: String, scope: String = "Title")
@@ -148,10 +165,8 @@ class MesAmisTableViewController: UITableViewController, UISearchBarDelegate, UI
         
     {
         
-        
-        
         self.filterContetnForSearchText(self.searchDisplayController!.searchBar.text!, scope: "Title")        
-        
+    
         return true
         
     }

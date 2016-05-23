@@ -18,10 +18,6 @@ class ChangePasswordTableViewController: UITableViewController {
     var usr = Utilisateur.utilisateur
     
     
-    @IBAction func retourTapped(sender: AnyObject) {
-        self.dismissViewControllerAnimated(true, completion: nil)
-    }
-    
     enum JSONError: String, ErrorType {
         case NoData = "ERROR: no data"
         case ConversionFailed = "ERROR: conversion from JSON failed"
@@ -174,7 +170,7 @@ class ChangePasswordTableViewController: UITableViewController {
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return 10
+        return 9
     }
 
     /*

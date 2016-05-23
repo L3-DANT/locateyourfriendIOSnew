@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		BA07186C1CF337D0006B3B6D /* DetailsAmiTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA07186B1CF337D0006B3B6D /* DetailsAmiTableViewController.swift */; };
 		BAE00BD11C943B060016BC78 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAE00BD01C943B060016BC78 /* AppDelegate.swift */; };
 		BAE00BD31C943B060016BC78 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAE00BD21C943B060016BC78 /* ViewController.swift */; };
 		BAE00BD61C943B060016BC78 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BAE00BD41C943B060016BC78 /* Main.storyboard */; };
@@ -45,6 +46,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		BA07186B1CF337D0006B3B6D /* DetailsAmiTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailsAmiTableViewController.swift; sourceTree = "<group>"; };
 		BAE00BCD1C943B050016BC78 /* LocateYourFriend.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LocateYourFriend.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BAE00BD01C943B060016BC78 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		BAE00BD21C943B060016BC78 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -139,6 +141,7 @@
 				BAFF51AB1CEB9C6A0063E6A7 /* MesAmisTableViewController.swift */,
 				BAFF51A71CE9F0C20063E6A7 /* MesInformationsTableViewController.swift */,
 				BAFF51A91CEA018D0063E6A7 /* ChangePasswordTableViewController.swift */,
+				BA07186B1CF337D0006B3B6D /* DetailsAmiTableViewController.swift */,
 			);
 			path = LocateYourFriend;
 			sourceTree = "<group>";
@@ -311,6 +314,7 @@
 				BAE00C981C9562BE0016BC78 /* SWRevealViewController.m in Sources */,
 				BAE00BD91C943B060016BC78 /* LocateYourFriend.xcdatamodeld in Sources */,
 				BAE00C021C943C1B0016BC78 /* MapViewController.swift in Sources */,
+				BA07186C1CF337D0006B3B6D /* DetailsAmiTableViewController.swift in Sources */,
 				BAE00C871C944A000016BC78 /* LoginTableViewController.swift in Sources */,
 				BAFF51951CE4C9650063E6A7 /* Utilisateur.swift in Sources */,
 				BAFF51A81CE9F0C20063E6A7 /* MesInformationsTableViewController.swift in Sources */,

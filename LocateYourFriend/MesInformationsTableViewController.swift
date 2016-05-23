@@ -15,12 +15,8 @@ class MesInformationsTableViewController: UITableViewController {
     @IBOutlet weak var nomField: UITextField!
     
     
+    @IBOutlet weak var menuButton: UIBarButtonItem!
 
-    @IBAction func retourTapped(sender: AnyObject) {
-        
-        self.dismissViewControllerAnimated(true, completion: nil)
-        
-    }
     
   
     var usr = Utilisateur.utilisateur
@@ -147,20 +143,18 @@ class MesInformationsTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+        if self.revealViewController() != nil {
+            menuButton.target = self.revealViewController()
+            menuButton.action = #selector(SWRevealViewController.revealToggle(_:))
+            self.view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
+            
+        }
         
         nomField.text = usr.nom
         prenomField.text = usr.prenom
         emailField.text = usr.email
         
-  
-
-    
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem()
     }
 
     override func didReceiveMemoryWarning() {
@@ -177,7 +171,7 @@ class MesInformationsTableViewController: UITableViewController {
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return 10
+        return 9
     }
 
     /*
