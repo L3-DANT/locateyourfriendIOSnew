@@ -40,9 +40,9 @@ class MapViewController: UIViewController,MKMapViewDelegate, CLLocationManagerDe
         
         if self.revealViewController() != nil {
             menuButton.target = self.revealViewController()
-            menuButton.action = "revealToggle:"
+            menuButton.action = #selector(SWRevealViewController.revealToggle(_:))
             self.view.addGestureRecognizer(self.revealViewController().panGestureRecognizer())
-           
+            
         }
     }
     
@@ -54,29 +54,50 @@ class MapViewController: UIViewController,MKMapViewDelegate, CLLocationManagerDe
     
     override func viewDidAppear(animated: Bool) {
         
+       /* let myAnnotation = MKPointAnnotation()
+        myAnnotation.coordinate = (locationManager.location?.coordinate)!
+        myAnnotation.title = "Ma position"
+        
+        mapView.addAnnotation(myAnnotation)*/
+        
+        for amis in Utilisateur.utilisateur.mesAmis.mesAmis {
+            
+            let location : CLLocationCoordinate2D = amis.localisation
+            let annotation = MKPointAnnotation()
+            annotation.coordinate = location
+            annotation.title = amis.prenom + " " + amis.nom
+            
+            mapView.addAnnotation(annotation)
+            
+        }
         
     }
     
     
-    
-    
-    func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation])
-    {
-        let location = locations.last
+    @IBAction func deconnexionAction(sender: AnyObject) {
+        NSUserDefaults.standardUserDefaults().setBool(false, forKey: "isUserLogin")
+        self.performSegueWithIdentifier("loginView", sender: self)
         
-        let center = CLLocationCoordinate2D(latitude: location!.coordinate.latitude, longitude: location!.coordinate.longitude)
-        
-        let region = MKCoordinateRegion(center: center, span: MKCoordinateSpan(latitudeDelta: 1, longitudeDelta: 1))
-        
-        self.mapView.setRegion(region, animated: true)
-        
-        self.locationManager.stopUpdatingLocation()
     }
     
-    func locationManager(manager: CLLocationManager, didFailWithError error: NSError)
-    {
-        print("Errors: " + error.localizedDescription)
-    }
+    
+    /* func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation])
+     {
+     let location = locations.last
+     
+     let center = CLLocationCoordinate2D(latitude: location!.coordinate.latitude, longitude: location!.coordinate.longitude)
+     
+     let region = MKCoordinateRegion(center: center, span: MKCoordinateSpan(latitudeDelta: 1, longitudeDelta: 1))
+     
+     self.mapView.setRegion(region, animated: true)
+     
+     self.locationManager.stopUpdatingLocation()
+     }
+     
+     func locationManager(manager: CLLocationManager, didFailWithError error: NSError)
+     {
+     print("Errors: " + error.localizedDescription)
+     }*/
     
     
 }
