@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="0Pb-ux-64i">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="0Pb-ux-64i">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -18,7 +18,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="jtg-9J-zrc">
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" showsUserLocation="YES" translatesAutoresizingMaskIntoConstraints="NO" id="jtg-9J-zrc">
                                 <rect key="frame" x="-9" y="0.0" width="380" height="708"/>
                             </mapView>
                         </subviews>
@@ -535,7 +535,7 @@
                                             <rect key="frame" x="15" y="0.0" width="384" height="44"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
@@ -574,7 +574,6 @@
         <!--Details Ami View Controller-->
         <scene sceneID="rst-7d-Tip">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="hJ1-Dj-ThO" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <viewController id="Oci-a4-G1E" customClass="DetailsAmiViewController" customModule="LocateYourFriend" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="8YM-QU-yoc"/>
@@ -708,6 +707,7 @@
                         <outlet property="prenomLabel" destination="Yoo-Mv-5a7" id="y9V-5t-upZ"/>
                     </connections>
                 </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="hJ1-Dj-ThO" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1100" y="2667"/>
         </scene>
@@ -1022,6 +1022,9 @@
                                                 </imageView>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="E-mail" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="2JI-uJ-Ud7">
                                                     <rect key="frame" x="56" y="10" width="311" height="29"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="311" id="di5-u3-KFC"/>
+                                                    </constraints>
                                                     <fontDescription key="fontDescription" name="ChalkboardSE-Regular" family="Chalkboard SE" pointSize="16"/>
                                                     <textInputTraits key="textInputTraits"/>
                                                 </textField>
@@ -1104,7 +1107,7 @@
                     <navigationItem key="navigationItem" id="ASD-3K-7Pu"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
                     <connections>
-                        <outlet property="userEmailTextField" destination="ryH-P5-3pX" id="wmN-T4-cl2"/>
+                        <outlet property="userEmailTextField" destination="2JI-uJ-Ud7" id="6rn-Om-TmE"/>
                         <outlet property="userPasswordTextField" destination="ryH-P5-3pX" id="X6y-cK-D2p"/>
                     </connections>
                 </tableViewController>

@@ -80,7 +80,7 @@ class RegisterTableViewController: UITableViewController {
         
         // On fait la session
         
-        let postEndpoint: String = "http://localhost:8080/locateyourfriend/rest/bienvenue/bienvenueJSON"
+        let postEndpoint: String = "http://172.20.10.7:8080/locateyourfriendJAVA/rest/appli/inscription/"
         
         let url = NSURL(string: postEndpoint)!
         
@@ -134,20 +134,26 @@ class RegisterTableViewController: UITableViewController {
                 
                 
                 if(json["error"] != nil){
-                    self.afficheMessageAlert("L'inscription n'a pas pu être effectuée, \(json["error"])")
-                    return
+                   self.afficheMessageAlert("L'inscription n'a pas pu être effectuée, \(json["error"])")
+                   return
                 }else{
-                    Utilisateur.utilisateur.configureUtilisateur(json as! [String : String])
+                    Utilisateur.userSingleton.configureUserSingleton(json as! [String : AnyObject]) 
                     NSUserDefaults.standardUserDefaults().setBool(true, forKey: "isUserLogin")
                     self.dismissViewControllerAnimated(true, completion: nil)
+                    
+                    /*let defaults = NSUserDefaults.standardUserDefaults()
+                    let defaultValue = ["monEmail" : Utilisateur.utilisateur.email]
+                    defaults.registerDefaults(defaultValue)*/
                     
                 }
                 
                 
             } catch let error as JSONError {
                 print(error.rawValue)
+                print("on est dans le premier catch")
             } catch let error as NSError {
                 print(error.debugDescription)
+                print("on est dans le deuxieme catch")
             }
             }.resume()
         

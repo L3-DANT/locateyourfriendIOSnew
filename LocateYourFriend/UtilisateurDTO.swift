@@ -1,6 +1,9 @@
 import CoreLocation
 class UtilisateurDTO{
     
+    //UserDTO est un user sans mot de passe
+    //C'est le modèle d'un user dans une liste d'amis
+    
     var nom : String
     var prenom : String
     var email : String

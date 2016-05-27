@@ -26,6 +26,7 @@
 		BAFF51A81CE9F0C20063E6A7 /* MesInformationsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAFF51A71CE9F0C20063E6A7 /* MesInformationsTableViewController.swift */; };
 		BAFF51AA1CEA018D0063E6A7 /* ChangePasswordTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAFF51A91CEA018D0063E6A7 /* ChangePasswordTableViewController.swift */; };
 		BAFF51AC1CEB9C6A0063E6A7 /* MesAmisTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAFF51AB1CEB9C6A0063E6A7 /* MesAmisTableViewController.swift */; };
+		CAB51EEE1CF912750048D004 /* Localisation.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAB51EED1CF912750048D004 /* Localisation.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -73,6 +74,7 @@
 		BAFF51A71CE9F0C20063E6A7 /* MesInformationsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MesInformationsTableViewController.swift; sourceTree = "<group>"; };
 		BAFF51A91CEA018D0063E6A7 /* ChangePasswordTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChangePasswordTableViewController.swift; sourceTree = "<group>"; };
 		BAFF51AB1CEB9C6A0063E6A7 /* MesAmisTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MesAmisTableViewController.swift; sourceTree = "<group>"; };
+		CAB51EED1CF912750048D004 /* Localisation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Localisation.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -142,6 +144,7 @@
 				BAFF51A71CE9F0C20063E6A7 /* MesInformationsTableViewController.swift */,
 				BAFF51A91CEA018D0063E6A7 /* ChangePasswordTableViewController.swift */,
 				BA07186B1CF337D0006B3B6D /* DetailsAmiTableViewController.swift */,
+				CAB51EED1CF912750048D004 /* Localisation.swift */,
 			);
 			path = LocateYourFriend;
 			sourceTree = "<group>";
@@ -306,6 +309,7 @@
 			files = (
 				BAFF51981CE4C9810063E6A7 /* UtilisateurDTO.swift in Sources */,
 				BAFF51AC1CEB9C6A0063E6A7 /* MesAmisTableViewController.swift in Sources */,
+				CAB51EEE1CF912750048D004 /* Localisation.swift in Sources */,
 				BAFF519C1CE4D4850063E6A7 /* Amis.swift in Sources */,
 				BAE00C8F1C9556A30016BC78 /* RegisterTableViewController.swift in Sources */,
 				BAE00BD31C943B060016BC78 /* ViewController.swift in Sources */,

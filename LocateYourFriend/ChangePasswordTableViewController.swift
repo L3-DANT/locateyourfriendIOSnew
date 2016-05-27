@@ -15,7 +15,7 @@ class ChangePasswordTableViewController: UITableViewController {
     
     @IBOutlet weak var retapePasswordField: UITextField!
     
-    var usr = Utilisateur.utilisateur
+    var usr = Utilisateur.userSingleton
     
     
     enum JSONError: String, ErrorType {
@@ -117,7 +117,7 @@ class ChangePasswordTableViewController: UITableViewController {
                 if(json["error"] != nil){
                     self.afficheMessageAlert("La modification n'a pas pu être effectuée, \(json["error"])")
                 }else{
-                    Utilisateur.utilisateur.configureUtilisateur(json as! [String : String])
+                    Utilisateur.userSingleton.configureUserSingleton(json as! [String : String])
                     self.afficheMessageAlert("Le mot de passe a bien été modifié")
                 }
                 

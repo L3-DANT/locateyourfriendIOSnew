@@ -67,13 +67,15 @@ class LoginTableViewController: UITableViewController {
         
         /* CHANGER L URL UNE FOIS PRETE */
         
-        let postEndpoint: String = "http://localhost:8080/locateyourfriend/rest/bienvenue/bienvenueJSON"
+        let postEndpoint: String = "http://172.20.10.7:8080/locateyourfriendJAVA/rest/appli/authentification"
         
         let url = NSURL(string: postEndpoint)!
         
         let session = NSURLSession.sharedSession()
         
         let postParams : [String: AnyObject] = ["email":userEmail!,"motDePasse":userPassword!]
+        
+        print("mon email "+userEmail! + "mon mdp " + userPassword!)
         
         
         
@@ -125,6 +127,7 @@ class LoginTableViewController: UITableViewController {
                 if(json["error"] != nil){
                     self.afficheMessageAlert("La connexion n'a pas pu être effectuée, \(json["error"])")
                 }else{
+                    Utilisateur.userSingleton.configureUserSingleton(json as! [String : AnyObject])
                     NSUserDefaults.standardUserDefaults().setBool(true, forKey: "isUserLogin")
                     self.dismissViewControllerAnimated(true, completion: nil)
                     
