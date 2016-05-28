@@ -19,7 +19,7 @@ class MesInformationsTableViewController: UITableViewController {
 
     
   
-    var usr = Utilisateur.utilisateur
+    var usr = Utilisateur.userSingleton
     
     enum JSONError: String, ErrorType {
         case NoData = "ERROR: no data"
@@ -110,7 +110,7 @@ class MesInformationsTableViewController: UITableViewController {
                 if(json["error"] != nil){
                     self.afficheMessageAlert("La modification n'a pas pu être effectuée, \(json["error"])")
                 }else{
-                    Utilisateur.utilisateur.configureUtilisateur(json as! [String : String])
+                    Utilisateur.userSingleton.configureUserSingleton(json as! [String : String])
                    self.afficheMessageAlert("La modification a bien été prise en compte")
                 }
                 
@@ -151,9 +151,15 @@ class MesInformationsTableViewController: UITableViewController {
             
         }
         
-        nomField.text = usr.nom
-        prenomField.text = usr.prenom
-        emailField.text = usr.email
+        //Pour la lire la valeur associé à la clé
+        let defaults = NSUserDefaults.standardUserDefaults()
+        let dataEmailUser : String = defaults.stringForKey("emailUser")!
+        let dataPrenomUser : String = defaults.stringForKey("prenomUser")!
+        let dataNomUser : String = defaults.stringForKey("nomUser")!
+        
+        nomField.text = dataNomUser
+        prenomField.text = dataPrenomUser
+        emailField.text = dataEmailUser
         
     }
 

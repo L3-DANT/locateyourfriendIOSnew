@@ -12,7 +12,7 @@ import CoreLocation
 class MesAmisTableViewController: UITableViewController, UISearchBarDelegate, UISearchDisplayDelegate {
 
     @IBOutlet var myTableView: UITableView!
-   var usr = Utilisateur.utilisateur
+   var usr = Utilisateur.userSingleton
     var amisFiltres = [UtilisateurDTO]()
   
 
