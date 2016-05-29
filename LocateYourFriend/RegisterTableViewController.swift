@@ -80,7 +80,7 @@ class RegisterTableViewController: UITableViewController {
         
         // On fait la session
         
-        let postEndpoint: String = "http://172.20.10.7:8080/locateyourfriendJAVA/rest/appli/inscription/"
+        let postEndpoint: String = "http://5.51.52.0:8080/locateyourfriendJAVA/rest/appli/inscription/"
         
         let url = NSURL(string: postEndpoint)!
         
