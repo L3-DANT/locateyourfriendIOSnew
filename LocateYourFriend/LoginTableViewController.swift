@@ -67,7 +67,7 @@ class LoginTableViewController: UITableViewController {
         
         /* CHANGER L URL UNE FOIS PRETE */
         
-        let postEndpoint: String = "http://172.20.10.7:8080/locateyourfriendJAVA/rest/appli/authentification"
+        let postEndpoint: String = "http://5.51.52.0:8080/locateyourfriendJAVA/rest/appli/authentification"
         
         let url = NSURL(string: postEndpoint)!
         
@@ -124,8 +124,12 @@ class LoginTableViewController: UITableViewController {
                 
                 
                 
-                if(json["error"] != nil){
-                    self.afficheMessageAlert("La connexion n'a pas pu être effectuée, \(json["error"])")
+                if(json["errorMessage"] != nil){
+                    print("erreur json")
+                    
+                    //Attention si le mot de passe est pas bon on passe quand même sur la map view correction rapide le afficheMessageAlert bug
+                    //self.afficheMessageAlert("La connexion n'a pas pu être effectuée, \(json["errorMessage"])")
+
                 }else{
                     Utilisateur.userSingleton.configureUserSingleton(json as! [String : AnyObject])
                     NSUserDefaults.standardUserDefaults().setBool(true, forKey: "isUserLogin")
@@ -140,6 +144,7 @@ class LoginTableViewController: UITableViewController {
                 print(error.debugDescription)
             }
             }.resume()
+        
         
         
         
