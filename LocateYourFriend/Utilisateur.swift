@@ -20,15 +20,19 @@ class Utilisateur {
     
     func configureUserSingleton(param : [String : AnyObject]){
        
+        print("on entre dans la fonction de configuration du singleton")
         if (param["nom"] != nil ){nom = param["nom"]! as! String}
         if (param["prenom"] != nil ){prenom = param["prenom"]! as! String}
         if (param["email"] != nil ){email = param["email"]! as! String}
         if (param["motDePasse"] != nil ){motDePasse = param["motDePasse"]! as! String}
         
         if(param["listUtil"] == nil){
+            print("on est dans listeutil is null")
             mesAmis = Amis()
         }else{
+            print("on met a jour la liste d'amis")
             mesAmis = Amis(mesAmis: param["listUtil"]! as![UtilisateurDTO])
+            print("on est apres la mise à jour")
         }
         
         //print'"Mes valeurs reçue"'

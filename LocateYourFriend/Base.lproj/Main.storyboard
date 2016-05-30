@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="0Pb-ux-64i">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="0Pb-ux-64i">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -239,7 +239,7 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <segue destination="DNv-gg-UmG" kind="custom" id="MGo-Hv-HGe"/>
+                                            <segue destination="DNv-gg-UmG" kind="custom" customClass="SWRevealViewControllerSeguePushController" id="MGo-Hv-HGe"/>
                                         </connections>
                                     </tableViewCell>
                                 </cells>
@@ -553,7 +553,6 @@
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina55"/>
                     <connections>
                         <outlet property="menuButton" destination="Ccg-lo-MmX" id="V3J-yL-lxf"/>
-                        <outlet property="myTableView" destination="6yT-eD-of0" id="TSn-Ow-zSr"/>
                         <outlet property="searchDisplayController" destination="ycg-52-V2s" id="0e3-pA-cmJ"/>
                         <segue destination="Oci-a4-G1E" kind="show" identifier="showDetails" id="Q4g-qn-s2I"/>
                     </connections>
@@ -711,10 +710,10 @@
             </objects>
             <point key="canvasLocation" x="1100" y="2667"/>
         </scene>
-        <!--Table View Controller-->
+        <!--Ajouter un ami-->
         <scene sceneID="bSF-c4-SKC">
             <objects>
-                <tableViewController id="ppF-4X-uTo" sceneMemberID="viewController">
+                <tableViewController id="ppF-4X-uTo" customClass="AjouterAmiTableViewController" customModule="LocateYourFriend" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="zCJ-Mt-Aeg">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -734,8 +733,13 @@
                             <outlet property="delegate" destination="ppF-4X-uTo" id="SIa-sb-1pl"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="nJg-3J-BMZ"/>
+                    <navigationItem key="navigationItem" title="Ajouter un ami" id="nJg-3J-BMZ">
+                        <barButtonItem key="leftBarButtonItem" image="menu" id="rxD-GC-dmq"/>
+                    </navigationItem>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina55"/>
+                    <connections>
+                        <outlet property="menuButton" destination="rxD-GC-dmq" id="LRD-Wh-DN0"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dw0-nI-jBb" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

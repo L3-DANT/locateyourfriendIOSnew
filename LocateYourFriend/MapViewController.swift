@@ -26,7 +26,7 @@ class MapViewController: UIViewController,MKMapViewDelegate, CLLocationManagerDe
         
         //On récupère la valeur de la clé isUserLogin pour savoir si l'utilisateur est connecté
         
-        print(isUserLoggedIn)
+       // print(isUserLoggedIn)
         
         //S'il n'est pas connecté, on le redirige vers la page de connexion
         
@@ -97,7 +97,7 @@ class MapViewController: UIViewController,MKMapViewDelegate, CLLocationManagerDe
         
         let timer = NSTimer.scheduledTimerWithTimeInterval(10, target: self, selector: #selector(self.updateAmisPositions), userInfo: nil, repeats: true)
         timer.fire()
-        print("Timer lancé")
+        //print("Timer lancé")
         
     }
     
@@ -105,9 +105,9 @@ class MapViewController: UIViewController,MKMapViewDelegate, CLLocationManagerDe
         
         if isUserLoggedIn != false{
             
-            print("coucou if")
+            //print("coucou if")
             
-            print("Ca fait 10 secondes")
+            //print("Ca fait 10 secondes")
             
             //Je supprimes les anciennes annotations si il y en a
             
@@ -120,9 +120,9 @@ class MapViewController: UIViewController,MKMapViewDelegate, CLLocationManagerDe
             //Et les inser dans mon user singleton
             
             //Liste factice d'amis qui change a chaque appel
-            usr.mesAmis.mesAmis += [UtilisateurDTO(nom: "DUPONT",prenom: "Laura",email: "laura.dupont@gmail.com", localisation: CLLocationCoordinate2DMake(44.750000,5.850000))]//location Lyon
+         /*   usr.mesAmis.mesAmis += [UtilisateurDTO(nom: "DUPONT",prenom: "Laura",email: "laura.dupont@gmail.com", localisation: CLLocationCoordinate2DMake(44.750000,5.850000))]//location Lyon
             usr.mesAmis.mesAmis += [UtilisateurDTO(nom: "MARTIN",prenom: "Laura",email: "laura.dupont@gmail.com", localisation: CLLocationCoordinate2DMake(46.3590900,2.3852100))] //Location Varzy
-            usr.mesAmis.mesAmis += [UtilisateurDTO(nom: "ZITOUN",prenom: "khaoula",email: "laura.dupont@gmail.com", localisation: CLLocationCoordinate2DMake(49.95,3.3833))]
+            usr.mesAmis.mesAmis += [UtilisateurDTO(nom: "ZITOUN",prenom: "khaoula",email: "laura.dupont@gmail.com", localisation: CLLocationCoordinate2DMake(49.95,3.3833))]*/
             
             //J'ajoute mes positions en annotations
             var UpdatedAnnotations = [MKPointAnnotation()]
@@ -170,14 +170,14 @@ class MapViewController: UIViewController,MKMapViewDelegate, CLLocationManagerDe
         let maLocActuelle = Localisation(localisation: locValueCCL)
         let maDerniereLoc = Localisation(localisation: comparedPositionCCL)
         
-        print(comparedPositionCCL)
+       // print(comparedPositionCCL)
         
         if(comparedPositionCCL.latitude == 0.0 && comparedPositionCCL.longitude == 0.0){
             comparedPositionCCL = locValueCCL
         }
         
-        print("Ma derniere localisation : " + String(maDerniereLoc.latitudeLoc) + "," + String(maDerniereLoc.longitudeLoc))
-        print("Ma nouvelle position : " + String(maLocActuelle.latitudeLoc) + "," + String(maLocActuelle.longitudeLoc) )
+     /*   print("Ma derniere localisation : " + String(maDerniereLoc.latitudeLoc) + "," + String(maDerniereLoc.longitudeLoc))
+        print("Ma nouvelle position : " + String(maLocActuelle.latitudeLoc) + "," + String(maLocActuelle.longitudeLoc) )*/
         
         
         if(maDerniereLoc.latitudeLoc != maLocActuelle.latitudeLoc || maDerniereLoc.longitudeLoc != maLocActuelle.longitudeLoc){
@@ -185,9 +185,9 @@ class MapViewController: UIViewController,MKMapViewDelegate, CLLocationManagerDe
             let difflongitude : Float = abs(maDerniereLoc.longitudeLoc - maLocActuelle.longitudeLoc)
             let diffMax : Float = 0.00010 //10 mètres
             
-            print(difflongitude)
+          /*  print(difflongitude)
             print( abs(difflongitude))
-            print(diffMax)
+            print(diffMax)*/
             
             if( difflatitude > diffMax || difflongitude > diffMax){
             
@@ -246,7 +246,7 @@ class MapViewController: UIViewController,MKMapViewDelegate, CLLocationManagerDe
                             guard let json = try NSJSONSerialization.JSONObjectWithData(data, options: []) as? NSDictionary else {
                                 throw JSONError.ConversionFailed
                             }
-                            print(json)
+                           // print(json)
                             
                             
                             if(json["error"] != nil){

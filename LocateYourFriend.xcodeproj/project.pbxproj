@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		BA07186C1CF337D0006B3B6D /* DetailsAmiTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA07186B1CF337D0006B3B6D /* DetailsAmiTableViewController.swift */; };
+		BA0718721CFC4A17006B3B6D /* AjouterAmiTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA0718711CFC4A17006B3B6D /* AjouterAmiTableViewController.swift */; };
 		BAE00BD11C943B060016BC78 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAE00BD01C943B060016BC78 /* AppDelegate.swift */; };
 		BAE00BD31C943B060016BC78 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAE00BD21C943B060016BC78 /* ViewController.swift */; };
 		BAE00BD61C943B060016BC78 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BAE00BD41C943B060016BC78 /* Main.storyboard */; };
@@ -48,6 +49,7 @@
 
 /* Begin PBXFileReference section */
 		BA07186B1CF337D0006B3B6D /* DetailsAmiTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailsAmiTableViewController.swift; sourceTree = "<group>"; };
+		BA0718711CFC4A17006B3B6D /* AjouterAmiTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AjouterAmiTableViewController.swift; sourceTree = "<group>"; };
 		BAE00BCD1C943B050016BC78 /* LocateYourFriend.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LocateYourFriend.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BAE00BD01C943B060016BC78 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		BAE00BD21C943B060016BC78 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -145,6 +147,7 @@
 				BAFF51A91CEA018D0063E6A7 /* ChangePasswordTableViewController.swift */,
 				BA07186B1CF337D0006B3B6D /* DetailsAmiTableViewController.swift */,
 				CAB51EED1CF912750048D004 /* Localisation.swift */,
+				BA0718711CFC4A17006B3B6D /* AjouterAmiTableViewController.swift */,
 			);
 			path = LocateYourFriend;
 			sourceTree = "<group>";
@@ -245,6 +248,7 @@
 				TargetAttributes = {
 					BAE00BCC1C943B050016BC78 = {
 						CreatedOnToolsVersion = 7.2.1;
+						DevelopmentTeam = A3EXSN6UVU;
 					};
 					BAE00BE31C943B060016BC78 = {
 						CreatedOnToolsVersion = 7.2.1;
@@ -313,6 +317,7 @@
 				BAFF519C1CE4D4850063E6A7 /* Amis.swift in Sources */,
 				BAE00C8F1C9556A30016BC78 /* RegisterTableViewController.swift in Sources */,
 				BAE00BD31C943B060016BC78 /* ViewController.swift in Sources */,
+				BA0718721CFC4A17006B3B6D /* AjouterAmiTableViewController.swift in Sources */,
 				BAE00BD11C943B060016BC78 /* AppDelegate.swift in Sources */,
 				BAFF51AA1CEA018D0063E6A7 /* ChangePasswordTableViewController.swift in Sources */,
 				BAE00C981C9562BE0016BC78 /* SWRevealViewController.m in Sources */,
@@ -454,10 +459,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = LocateYourFriend/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = Khaoula.LocateYourFriend;
+				PRODUCT_BUNDLE_IDENTIFIER = LocateYourFriend;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "LocateYourFriend/LocateYourFriend-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
@@ -468,10 +476,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = LocateYourFriend/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = Khaoula.LocateYourFriend;
+				PRODUCT_BUNDLE_IDENTIFIER = LocateYourFriend;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "LocateYourFriend/LocateYourFriend-Bridging-Header.h";
 			};
 			name = Release;

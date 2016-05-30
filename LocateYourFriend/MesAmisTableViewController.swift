@@ -9,18 +9,24 @@
 import UIKit
 import CoreLocation
 
-class MesAmisTableViewController: UITableViewController, UISearchBarDelegate, UISearchDisplayDelegate {
+class MesAmisTableViewController: UITableViewController, UISearchResultsUpdating {
 
-    @IBOutlet var myTableView: UITableView!
-   var usr = Utilisateur.userSingleton
+
+    var usr = Utilisateur.userSingleton
     var amisFiltres = [UtilisateurDTO]()
+    
+    var searchController : UISearchController!
+    var resultsController = UITableViewController()
   
 
     @IBOutlet weak var menuButton: UIBarButtonItem!
 
 
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        print("nombre d'amis : \(usr.mesAmis.mesAmis.count)")
         
         if self.revealViewController() != nil {
             menuButton.target = self.revealViewController()
@@ -29,62 +35,75 @@ class MesAmisTableViewController: UITableViewController, UISearchBarDelegate, UI
             
         }
         
+        self.resultsController.tableView.dataSource = self
+        self.resultsController.tableView.delegate = self
         
-        usr.mesAmis.mesAmis += [UtilisateurDTO(nom: "DUPONT",prenom: "Laura",email: "laura.dupont@gmail.com", localisation: CLLocationCoordinate2DMake(48.95,2.3833))]
+        self.searchController = UISearchController(searchResultsController:self.resultsController)
+        self.tableView.tableHeaderView = self.searchController.searchBar
+        self.searchController.searchResultsUpdater = self
+        self.searchController.dimsBackgroundDuringPresentation = false
+        
+        // Pour enlever l'espace du dessus
+        definesPresentationContext = true
+        
+        
+       /* usr.mesAmis.mesAmis += [UtilisateurDTO(nom: "DUPONT",prenom: "Laura",email: "laura.dupont@gmail.com", localisation: CLLocationCoordinate2DMake(48.95,2.3833))]
            usr.mesAmis.mesAmis += [UtilisateurDTO(nom: "MARTIN",prenom: "Laura",email: "laura.dupont@gmail.com", localisation: CLLocationCoordinate2DMake(48.95,2.3833))]
-           usr.mesAmis.mesAmis += [UtilisateurDTO(nom: "ZITOUN",prenom: "khaoula",email: "laura.dupont@gmail.com", localisation: CLLocationCoordinate2DMake(48.95,2.3833))]
+           usr.mesAmis.mesAmis += [UtilisateurDTO(nom: "ZITOUN",prenom: "khaoula",email: "laura.dupont@gmail.com", localisation: CLLocationCoordinate2DMake(48.95,2.3833))]*/
+        
+        
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem()
     }
-
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
-
+    
+    
+    func updateSearchResultsForSearchController(searchController: UISearchController)
+    {
+        
+        self.amisFiltres = self.usr.mesAmis.mesAmis.filter { (ami:UtilisateurDTO) -> Bool in
+            if(ami.nom.lowercaseString.containsString(self.searchController.searchBar.text!.lowercaseString) || ami.prenom.lowercaseString.containsString(self.searchController.searchBar.text!.lowercaseString) ){
+                return true
+            }else{
+                return false
+            }
+        }
+        
+        self.resultsController.tableView.reloadData()
+        
+        
+    }
+    
     // MARK: - Table view data source
-
+    
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
         return 1
     }
-
+    
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
-        
-        if (tableView == self.searchDisplayController?.searchResultsTableView)
-        {
+        if (tableView != self.tableView){
             return self.amisFiltres.count
-        }
-        else
-        {
+        }else{
             return usr.mesAmis.mesAmis.count
         }
-
-      
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell
     {
-        let cell = self.myTableView.dequeueReusableCellWithIdentifier("cell")! as UITableViewCell
+        let cell = UITableViewCell()
         
-        var ami : UtilisateurDTO
+        //var ami : UtilisateurDTO
         
-        if (tableView == self.searchDisplayController?.searchResultsTableView)
-        {
-            ami = self.amisFiltres[indexPath.row]
+        if (tableView != self.tableView){
+            cell.textLabel?.text = self.amisFiltres[indexPath.row].prenom + " " + self.amisFiltres[indexPath.row].nom
+        }else{
+            cell.textLabel?.text =  self.usr.mesAmis.mesAmis[indexPath.row].prenom + " " + self.usr.mesAmis.mesAmis[indexPath.row].nom
         }
-        else
-        {
-            ami = self.usr.mesAmis.mesAmis[indexPath.row]
-        }
-        
-        
-        cell.textLabel?.text = ami.prenom + " " + ami.nom
-        
         
         return cell
     }
@@ -97,12 +116,9 @@ class MesAmisTableViewController: UITableViewController, UISearchBarDelegate, UI
         
         var ami: UtilisateurDTO
         
-        if (tableView == self.searchDisplayController?.searchResultsTableView)
-        {
+        if (tableView != self.tableView){
             ami = self.amisFiltres[indexPath.row]
-        }
-        else
-        {
+        }else{
             ami = self.usr.mesAmis.mesAmis[indexPath.row]
         }
         
@@ -116,62 +132,29 @@ class MesAmisTableViewController: UITableViewController, UISearchBarDelegate, UI
         let rowSelected = (sender as! NSIndexPath).row
         if let destinationVC = segue.destinationViewController as? DetailsAmiViewController{
             destinationVC.usr = usr.mesAmis.mesAmis[rowSelected]
-           
+            
         }
     }
     
-    
-    func filterContetnForSearchText(searchText: String, scope: String = "Title")
-        
-    {
-        
-        self.amisFiltres = self.usr.mesAmis.mesAmis.filter({( ami : UtilisateurDTO) -> Bool in
-            
-            
-            
-            let categoryMatch = (scope == "Title")
-            
-            let rech : String = ami.prenom + " " + ami.nom
-            
-            let stringMatch = rech.rangeOfString(searchText)
-            
-            
-            
-            return categoryMatch && (stringMatch != nil)
-            
-            
-            
-        })
-        
-        
-        
-    }
-    
-    func searchDisplayController(controller: UISearchDisplayController, shouldReloadTableForSearchString searchString: String?) -> Bool
-        
-    {
-        
-        
-        
-        self.filterContetnForSearchText(searchString!, scope: "Title")
-        
-        
-        
-        return true
-        
-    }
-    
-    func searchDisplayController(controller: UISearchDisplayController, shouldReloadTableForSearchScope searchOption: Int) -> Bool
-        
-    {
-        
-        self.filterContetnForSearchText(self.searchDisplayController!.searchBar.text!, scope: "Title")        
-    
-        return true
-        
-    }
 
 
+    enum JSONError: String, ErrorType {
+        case NoData = "ERROR: no data"
+        case ConversionFailed = "ERROR: conversion from JSON failed"
+    }
+    
+    func afficheMessageAlert(message : String){
+        let myAlert = UIAlertController(title:"Attention", message : message, preferredStyle: UIAlertControllerStyle.Alert);
+        
+        let okAction = UIAlertAction(title:"Fermer",style:UIAlertActionStyle.Default, handler:nil);
+        
+        myAlert.addAction(okAction);
+        
+        self.presentViewController(myAlert, animated: true, completion: nil);
+        
+    }
+    
+    
     /*
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("reuseIdentifier", forIndexPath: indexPath)
