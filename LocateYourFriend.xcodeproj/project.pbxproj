@@ -28,6 +28,7 @@
 		BAFF51AA1CEA018D0063E6A7 /* ChangePasswordTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAFF51A91CEA018D0063E6A7 /* ChangePasswordTableViewController.swift */; };
 		BAFF51AC1CEB9C6A0063E6A7 /* MesAmisTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAFF51AB1CEB9C6A0063E6A7 /* MesAmisTableViewController.swift */; };
 		CAB51EEE1CF912750048D004 /* Localisation.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAB51EED1CF912750048D004 /* Localisation.swift */; };
+		CAFBE2301CFD8D5200815C3E /* PhoneData.swift in Sources */ = {isa = PBXBuildFile; fileRef = CAFBE22F1CFD8D5200815C3E /* PhoneData.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -77,6 +78,7 @@
 		BAFF51A91CEA018D0063E6A7 /* ChangePasswordTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChangePasswordTableViewController.swift; sourceTree = "<group>"; };
 		BAFF51AB1CEB9C6A0063E6A7 /* MesAmisTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MesAmisTableViewController.swift; sourceTree = "<group>"; };
 		CAB51EED1CF912750048D004 /* Localisation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Localisation.swift; sourceTree = "<group>"; };
+		CAFBE22F1CFD8D5200815C3E /* PhoneData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhoneData.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -148,6 +150,7 @@
 				BA07186B1CF337D0006B3B6D /* DetailsAmiTableViewController.swift */,
 				CAB51EED1CF912750048D004 /* Localisation.swift */,
 				BA0718711CFC4A17006B3B6D /* AjouterAmiTableViewController.swift */,
+				CAFBE22F1CFD8D5200815C3E /* PhoneData.swift */,
 			);
 			path = LocateYourFriend;
 			sourceTree = "<group>";
@@ -248,7 +251,7 @@
 				TargetAttributes = {
 					BAE00BCC1C943B050016BC78 = {
 						CreatedOnToolsVersion = 7.2.1;
-						DevelopmentTeam = A3EXSN6UVU;
+						DevelopmentTeam = PVAS5Y2EVJ;
 					};
 					BAE00BE31C943B060016BC78 = {
 						CreatedOnToolsVersion = 7.2.1;
@@ -327,6 +330,7 @@
 				BAE00C871C944A000016BC78 /* LoginTableViewController.swift in Sources */,
 				BAFF51951CE4C9650063E6A7 /* Utilisateur.swift in Sources */,
 				BAFF51A81CE9F0C20063E6A7 /* MesInformationsTableViewController.swift in Sources */,
+				CAFBE2301CFD8D5200815C3E /* PhoneData.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -463,7 +467,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = LocateYourFriend/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = LocateYourFriend;
+				PRODUCT_BUNDLE_IDENTIFIER = Khaoula.LocateYourFriend;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "LocateYourFriend/LocateYourFriend-Bridging-Header.h";
@@ -480,7 +484,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = LocateYourFriend/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = LocateYourFriend;
+				PRODUCT_BUNDLE_IDENTIFIER = Khaoula.LocateYourFriend;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "LocateYourFriend/LocateYourFriend-Bridging-Header.h";

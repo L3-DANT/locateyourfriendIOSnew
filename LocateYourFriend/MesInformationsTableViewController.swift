@@ -17,8 +17,6 @@ class MesInformationsTableViewController: UITableViewController {
     
     @IBOutlet weak var menuButton: UIBarButtonItem!
 
-    
-  
     var usr = Utilisateur.userSingleton
     
     enum JSONError: String, ErrorType {

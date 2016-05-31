@@ -11,6 +11,8 @@ import UIKit
 
 class ViewController: UIViewController{
     
+    let dataphone = PhoneData()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -20,6 +22,15 @@ class ViewController: UIViewController{
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
         
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        
+        if (Utilisateur.userSingleton.email == ""){
+            
+            Utilisateur.userSingleton.configureUserSingleton(dataphone.dataNom, prenomUser: dataphone.dataPrenom, emailUser: dataphone.dataEmail, motDePasseUser: "")
+        }
+
     }
 
     

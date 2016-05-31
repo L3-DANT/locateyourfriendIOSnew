@@ -16,6 +16,21 @@ class LoginTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        let defaults = NSUserDefaults.standardUserDefaults()
+        
+        let defaultValueEmail = ["emailUser" : ""]
+        let defaultValuePrenom = ["prenomUser" : ""]
+        let defaultValueNom = ["nomUser" : ""]
+        let defaultValueMdp = ["mdpUser" : ""]
+        let defaultValuePartagePosition = ["partagePosition" : true]
+        defaults.registerDefaults(defaultValueEmail)
+        defaults.registerDefaults(defaultValuePrenom)
+        defaults.registerDefaults(defaultValueNom)
+        defaults.registerDefaults(defaultValueMdp)
+        defaults.registerDefaults(defaultValuePartagePosition)
+        
+        defaults.synchronize()
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -134,6 +149,7 @@ class LoginTableViewController: UITableViewController {
                     Utilisateur.userSingleton.configureUserSingleton(json as! [String : AnyObject])
                     NSUserDefaults.standardUserDefaults().setBool(true, forKey: "isUserLogin")
                     self.dismissViewControllerAnimated(true, completion: nil)
+                    print(Utilisateur.userSingleton.email)
                     
                 }
                 

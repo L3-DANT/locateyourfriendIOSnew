@@ -35,7 +35,7 @@ class AjouterAmiTableViewController: UITableViewController, UISearchResultsUpdat
         
         listeUsr += [UtilisateurDTO(nom: "DUPONT",prenom: "TEST",email: "test@test.fr", localisation: CLLocationCoordinate2DMake(48.95,2.3833))]
         listeUsr += [UtilisateurDTO(nom: "MARTIN",prenom: "Laura",email: "client1@client1.fr", localisation: CLLocationCoordinate2DMake(48.95,2.3833))]
-        listeUsr += [UtilisateurDTO(nom: "ZITOUN",prenom: "khaoula",email: "khaoula.zitoun@gmail.com", localisation: CLLocationCoordinate2DMake(48.95,2.3833))]
+        listeUsr += [UtilisateurDTO(nom: "ZITOUN",prenom: "khaoula",email: "Khaoula.zitoun@gmail.com", localisation: CLLocationCoordinate2DMake(48.95,2.3833))]
         
 
 
@@ -209,7 +209,8 @@ class AjouterAmiTableViewController: UITableViewController, UISearchResultsUpdat
         // On fait la session
         
         
-        
+        print("email du user connecte" + Utilisateur.userSingleton.email)
+        print("email de l'ami a ajouter" + usr.email)
         let postEndpoint: String = "http://5.51.52.0:8080/locateyourfriendJAVA/rest/appli/addAmis?user1=\(Utilisateur.userSingleton.email)&user2=\(usr.email)"
         
         let url = NSURL(string: postEndpoint)!
@@ -270,8 +271,19 @@ class AjouterAmiTableViewController: UITableViewController, UISearchResultsUpdat
                 }else{
                     // On met à jour notre utilisateur
                     print("on met à jour")
-                    print("ma liste est est nulle ? \(json["mesAmis"]!["listUtil"])")
-                    Utilisateur.userSingleton.configureUserSingleton(json as! [String : AnyObject])
+                    
+                        let testtab : NSArray! = json["mesAmis"]!["listUtil"] as! NSArray
+                        //let teststring : NSArray! = json["mesAmis"]!["listUtil"]!![0]["email"] as! NSArray
+                        let max : Int =  testtab.count - 1
+                        var teststring : String! = json["mesAmis"]!["listUtil"]!![0]["email"] as! String
+                        
+                        for index in 0...max{
+                            teststring = json["mesAmis"]!["listUtil"]!![index]["email"] as! String
+                            print(teststring)
+                        }
+                        
+                    //print("ma liste est est nulle ? \(json["mesAmis"]!["listUtil"]!![0]["email"])")
+                    //Utilisateur.userSingleton.configureUserSingleton(json as! [String : AnyObject])
                     
                     
                     // On redirige vers la liste d'amis

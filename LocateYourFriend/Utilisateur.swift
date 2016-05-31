@@ -31,17 +31,17 @@ class Utilisateur {
             mesAmis = Amis()
         
         }else{
-            print("on met a jour la liste d'amis : \(param["mesAmis"])")
+            //print("on met a jour la liste d'amis : \(param["mesAmis"])")
             
             
-            mesAmis = Amis(mesAmis: param["mesAmis"]!["listUtil"]! as![UtilisateurDTO])
-            print("on est apres la mise à jour")
+            //mesAmis = Amis(mesAmis: param["mesAmis"]!["listUtil"]! as![UtilisateurDTO])
+            //print("on est apres la mise à jour")
         }
         
         //print'"Mes valeurs reçue"'
         
         SetFirstNSUserDefaultsForUser()
-        SetNsUserDefaultsForUser(nom, prenomUser: prenom, emailUser: email)
+        SetNsUserDefaultsForUser(nom, prenomUser: prenom, emailUser: email, mdpUser: motDePasse)
     
         //Pour la lire la valeur associé à la clé
         //let defaults = NSUserDefaults.standardUserDefaults()
@@ -52,7 +52,8 @@ class Utilisateur {
     private func SetFirstNSUserDefaultsForUser(){
         
         let defaults = NSUserDefaults.standardUserDefaults()
-        if(defaults.stringForKey("emailUser") != nil || defaults.stringForKey("prenomUser") != nil || defaults.stringForKey("nomUser") != nil){
+        
+        if((defaults.stringForKey("emailUser") != nil || defaults.stringForKey("prenomUser") != nil || defaults.stringForKey("nomUser") != nil || defaults.stringForKey("mdpUser") != nil)){
             
             SetEmptyNsUserDefaultsForUser()
             
@@ -65,9 +66,12 @@ class Utilisateur {
             let defaultValueEmail = ["emailUser" : ""]
             let defaultValuePrenom = ["prenomUser" : ""]
             let defaultValueNom = ["nomUser" : ""]
+            let defaultValueMdp = ["mdpUser" : ""]
             defaults.registerDefaults(defaultValueEmail)
             defaults.registerDefaults(defaultValuePrenom)
             defaults.registerDefaults(defaultValueNom)
+            defaults.registerDefaults(defaultValueMdp)
+
             
             defaults.synchronize()
             //Penser a supprimer sa lors de la déconnexion
@@ -106,7 +110,7 @@ class Utilisateur {
 
     }
     
-    private func SetNsUserDefaultsForUser(nomUser : String, prenomUser : String, emailUser : String){
+    private func SetNsUserDefaultsForUser(nomUser : String, prenomUser : String, emailUser : String, mdpUser : String){
         
         let defaults = NSUserDefaults.standardUserDefaults()
         
@@ -114,6 +118,8 @@ class Utilisateur {
         defaults.setObject(nomUser, forKey: "nomUser")
         defaults.setObject(prenomUser, forKey: "prenomUser")
         defaults.setObject(emailUser, forKey: "emailUser")
+        defaults.setObject(emailUser, forKey: "mdpUser")
+        
         
         defaults.synchronize()
         
@@ -127,16 +133,15 @@ class Utilisateur {
 
     }
     
-    /*func configureUserSingleton(nomUser :String, prenomUser : String, emailUser :String, motDePasseUser : String){
+    func configureUserSingleton(nomUser :String, prenomUser : String, emailUser :String, motDePasseUser : String){
         
-        
-        self.nom = nomUser
+        nom = nomUser
         prenom = prenomUser
         email = emailUser
         motDePasse = motDePasseUser
         mesAmis = Amis()
         
-    }*/
+    }
 
     
 }
