@@ -26,12 +26,15 @@ class Utilisateur {
         if (param["email"] != nil ){email = param["email"]! as! String}
         if (param["motDePasse"] != nil ){motDePasse = param["motDePasse"]! as! String}
         
-        if(param["listUtil"] == nil){
+        if(param["mesAmis"] == nil){
             print("on est dans listeutil is null")
             mesAmis = Amis()
+        
         }else{
-            print("on met a jour la liste d'amis")
-            mesAmis = Amis(mesAmis: param["listUtil"]! as![UtilisateurDTO])
+            print("on met a jour la liste d'amis : \(param["mesAmis"])")
+            
+            
+            mesAmis = Amis(mesAmis: param["mesAmis"]!["listUtil"]! as![UtilisateurDTO])
             print("on est apres la mise à jour")
         }
         

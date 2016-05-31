@@ -31,11 +31,11 @@ class AjouterAmiTableViewController: UITableViewController, UISearchResultsUpdat
         
         // On récupère la liste des utilisateurs de l'application
         
-        self.getListeUtilisateurs()
+        //self.getListeUtilisateurs()
         
-        /*listeUsr += [UtilisateurDTO(nom: "DUPONT",prenom: "TEST",email: "test@test.fr", localisation: CLLocationCoordinate2DMake(48.95,2.3833))]
-        listeUsr += [UtilisateurDTO(nom: "MARTIN",prenom: "Laura",email: "laura.martin@gmail.com", localisation: CLLocationCoordinate2DMake(48.95,2.3833))]
-        listeUsr += [UtilisateurDTO(nom: "ZITOUN",prenom: "khaoula",email: "khaoula.zitoun@gmail.com", localisation: CLLocationCoordinate2DMake(48.95,2.3833))]*/
+        listeUsr += [UtilisateurDTO(nom: "DUPONT",prenom: "TEST",email: "test@test.fr", localisation: CLLocationCoordinate2DMake(48.95,2.3833))]
+        listeUsr += [UtilisateurDTO(nom: "MARTIN",prenom: "Laura",email: "client1@client1.fr", localisation: CLLocationCoordinate2DMake(48.95,2.3833))]
+        listeUsr += [UtilisateurDTO(nom: "ZITOUN",prenom: "khaoula",email: "khaoula.zitoun@gmail.com", localisation: CLLocationCoordinate2DMake(48.95,2.3833))]
         
 
 
@@ -108,13 +108,13 @@ class AjouterAmiTableViewController: UITableViewController, UISearchResultsUpdat
                 }
                 
                 
-                guard let json = try NSJSONSerialization.JSONObjectWithData(data, options: []) as? NSArray else {
+                guard let json = try NSJSONSerialization.JSONObjectWithData(data, options: []) as? NSObject else {
                     throw JSONError.ConversionFailed
                 }
                 print(json)
                 
                 
-                //self.listeUsr = json as! [UtilisateurDTO]
+                self.listeUsr = json as! [UtilisateurDTO]
                 
                 print("ma liste d'utilisateurs \(self.listeUsr)")
                 
@@ -270,10 +270,10 @@ class AjouterAmiTableViewController: UITableViewController, UISearchResultsUpdat
                 }else{
                     // On met à jour notre utilisateur
                     print("on met à jour")
-                    print("ma liste est est nulle ? \(json["listUtil"])")
+                    print("ma liste est est nulle ? \(json["mesAmis"]!["listUtil"])")
                     Utilisateur.userSingleton.configureUserSingleton(json as! [String : AnyObject])
                     
-                    print("ma nouovelle liste :\(Utilisateur.userSingleton.mesAmis.mesAmis)")
+                    
                     // On redirige vers la liste d'amis
                     
                     
