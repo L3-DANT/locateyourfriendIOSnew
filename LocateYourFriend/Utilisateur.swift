@@ -31,10 +31,16 @@ class Utilisateur {
             mesAmis = Amis()
         
         }else{
-            print("on met a jour la liste d'amis : \(param["mesAmis"])")
+            print("on met a jour la liste d'amis : \(param["mesAmis"]!["listUtil"]!![0])")
+            print("on met a jour la liste d'amis : \(param["mesAmis"]!["listUtil"]!![0])")
             
             
-            mesAmis = Amis(mesAmis: param["mesAmis"]!["listUtil"]! as![UtilisateurDTO])
+           
+            //var util : UtilisateurDTO = param["mesAmis"]!["listUtil"]!![0] as! UtilisateurDTO
+            
+            //print("liste des utilisateurs : \(util)")
+            //mesAmis = Amis(mesAmis: param["mesAmis"]!["listUtil"]! as![UtilisateurDTO])
+            //mesAmis = Amis()
             print("on est apres la mise à jour")
         }
         

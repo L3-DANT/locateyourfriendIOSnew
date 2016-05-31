@@ -55,13 +55,18 @@ class LoginTableViewController: UITableViewController {
         let userEmail = userEmailTextField.text;
         let userPassword = userPasswordTextField.text;
         
+        var message = ""
+        
         if(userEmail!.isEmpty || userPassword!.isEmpty){
             // Affiche un message d'erreur
-            afficheMessageAlert("Tous les champs doivent être remplis");
-            return;
+            message = "Tous les champs doivent être remplis";
+            
         }
         
-        
+        if(message != ""){
+            self.afficheMessageAlert(message)
+            return
+        }
         
         // On fait la session
         
@@ -125,7 +130,8 @@ class LoginTableViewController: UITableViewController {
                 
                 
                 if(json["errorMessage"] != nil){
-                    print("erreur json")
+                    message = json["errorMessage"] as! String
+                    print("mon message \(message)")
                     
                     //Attention si le mot de passe est pas bon on passe quand même sur la map view correction rapide le afficheMessageAlert bug
                     //self.afficheMessageAlert("La connexion n'a pas pu être effectuée, \(json["errorMessage"])")
@@ -146,7 +152,10 @@ class LoginTableViewController: UITableViewController {
             }.resume()
         
         
-        
+        if(message != ""){
+            self.afficheMessageAlert(message)
+            return
+        }
         
         
     }

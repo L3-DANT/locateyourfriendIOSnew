@@ -133,7 +133,7 @@ class RegisterTableViewController: UITableViewController {
                 print(json)
                 
                 
-                if(json["error"] != nil){
+                if(json["errorMessage"] != nil){
                    self.afficheMessageAlert("L'inscription n'a pas pu être effectuée, \(json["error"])")
                    return
                 }else{

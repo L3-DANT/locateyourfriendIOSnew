@@ -24,6 +24,7 @@ class MapViewController: UIViewController,MKMapViewDelegate, CLLocationManagerDe
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        
         //On récupère la valeur de la clé isUserLogin pour savoir si l'utilisateur est connecté
         
        // print(isUserLoggedIn)
