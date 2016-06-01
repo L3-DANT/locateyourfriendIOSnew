@@ -145,8 +145,8 @@ class RegisterTableViewController: UITableViewController {
                     NSUserDefaults.standardUserDefaults().setBool(true, forKey: "isUserLogin")
                      NSUserDefaults.standardUserDefaults().setBool(false, forKey: "inscriptionConfig")
                     
-                     let isInscription = NSUserDefaults.standardUserDefaults().boolForKey("inscriptionConfig")
-                    print("isInscription : \(isInscription)")
+                     //let isInscription = NSUserDefaults.standardUserDefaults().boolForKey("inscriptionConfig")
+                    //print("isInscription : \(isInscription)")
                     self.dismissViewControllerAnimated(true, completion: nil)
                     
                     

@@ -213,11 +213,12 @@ class AjouterAmiTableViewController: UITableViewController, UISearchResultsUpdat
         
         // On récupère l'ami à ajouter
         let usr : UtilisateurDTO = self.amisFiltres[sender.tag]
+        print (usr.email)
         
         // On fait la session
         
       
-        let postEndpoint: String = "http://5.51.52.0:8080/locateyourfriendJAVA/rest/appli/addAmis?user1=\(Utilisateur.userSingleton.email)&user2=\(usr.email)"
+        let postEndpoint: String = "http://172.20.10.9:8080/locateyourfriendJAVA/rest/appli/addAmis?user1=\(Utilisateur.userSingleton.email)&user2=\(usr.email)"
         
         let url = NSURL(string: postEndpoint)!
         

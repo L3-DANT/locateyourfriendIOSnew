@@ -139,6 +139,8 @@ class MapViewController: UIViewController,MKMapViewDelegate, CLLocationManagerDe
                         return
                     }else{
                         
+                        self.usr.configureUserSingleton(json as! [String : AnyObject])
+                        
                         
                         //print("ma liste d'utilisateurs \(json["Amis"]!["listUtil"])")
                         
@@ -169,6 +171,7 @@ class MapViewController: UIViewController,MKMapViewDelegate, CLLocationManagerDe
             //J'ajoute mes positions en annotations
             var UpdatedAnnotations = [MKPointAnnotation()]
             
+            print(usr.mesAmis.mesAmis)
             for ami in usr.mesAmis.mesAmis{
                 
                 let UpdatedAnnotation = MKPointAnnotation()

@@ -33,12 +33,15 @@ class Utilisateur {
         if(!isInscription){
             
             print("ce n'est pas inscription")
-            if(param["mesAmis"]!["listUtil"] != nil){
+            //if( != nil){
         
             print("on est dans le if")
             
             
             let testtab : NSArray! = param["mesAmis"]!["listUtil"] as! NSArray
+                print (testtab.count)
+                if( testtab.count != 0){
+                    print (testtab)
         
             let max : Int =  testtab.count - 1
             
