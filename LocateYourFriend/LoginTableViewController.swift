@@ -69,13 +69,11 @@ class LoginTableViewController: UITableViewController {
         
         let userEmail = userEmailTextField.text;
         let userPassword = userPasswordTextField.text;
-        
         if(userEmail!.isEmpty || userPassword!.isEmpty){
             // Affiche un message d'erreur
             afficheMessageAlert("Tous les champs doivent être remplis");
             return;
         }
-        
         
         
         // On fait la session
@@ -140,11 +138,7 @@ class LoginTableViewController: UITableViewController {
                 
                 
                 if(json["errorMessage"] != nil){
-                    print("erreur json")
-                    
-                    //Attention si le mot de passe est pas bon on passe quand même sur la map view correction rapide le afficheMessageAlert bug
-                    //self.afficheMessageAlert("La connexion n'a pas pu être effectuée, \(json["errorMessage"])")
-
+                    print("Erreur lors de la connexion : \(json["errorMessage"] as! String)")
                 }else{
                     Utilisateur.userSingleton.configureUserSingleton(json as! [String : AnyObject])
                     NSUserDefaults.standardUserDefaults().setBool(true, forKey: "isUserLogin")
@@ -162,7 +156,7 @@ class LoginTableViewController: UITableViewController {
             }.resume()
         
         
-        
+
         
         
     }

@@ -289,12 +289,14 @@ class MapViewController: UIViewController,MKMapViewDelegate, CLLocationManagerDe
     
     
     override func viewDidAppear(animated: Bool) {
+        print("mon signle : \(usr.mesAmis.mesAmis.count)")
         
     }
     
     
     @IBAction func deconnexionAction(sender: AnyObject) {
         NSUserDefaults.standardUserDefaults().setBool(false, forKey: "isUserLogin")
+        NSUserDefaults.standardUserDefaults().setBool(false, forKey: "inscriptionConfig")
         self.performSegueWithIdentifier("loginView", sender: self)
         
         //Lors de la déconnexion, les clés/valeurs enregistrées doivent être remise à zero

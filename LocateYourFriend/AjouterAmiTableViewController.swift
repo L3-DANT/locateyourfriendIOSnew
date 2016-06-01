@@ -31,13 +31,8 @@ class AjouterAmiTableViewController: UITableViewController, UISearchResultsUpdat
         
         // On récupère la liste des utilisateurs de l'application
         
-        //self.getListeUtilisateurs()
+        self.getListeUtilisateurs()
         
-        listeUsr += [UtilisateurDTO(nom: "DUPONT",prenom: "TEST",email: "test@test.fr", localisation: CLLocationCoordinate2DMake(48.95,2.3833))]
-        listeUsr += [UtilisateurDTO(nom: "MARTIN",prenom: "Laura",email: "client1@client1.fr", localisation: CLLocationCoordinate2DMake(48.95,2.3833))]
-        listeUsr += [UtilisateurDTO(nom: "ZITOUN",prenom: "khaoula",email: "Khaoula.zitoun@gmail.com", localisation: CLLocationCoordinate2DMake(48.95,2.3833))]
-        
-
 
         self.resultsController.tableView.dataSource = self
         self.resultsController.tableView.delegate = self
@@ -108,17 +103,25 @@ class AjouterAmiTableViewController: UITableViewController, UISearchResultsUpdat
                 }
                 
                 
-                guard let json = try NSJSONSerialization.JSONObjectWithData(data, options: []) as? NSObject else {
+                guard let json = try NSJSONSerialization.JSONObjectWithData(data, options: []) as? NSArray else {
                     throw JSONError.ConversionFailed
                 }
                 print(json)
                 
                 
-                self.listeUsr = json as! [UtilisateurDTO]
+                let testtab : NSArray! = json 
                 
-                print("ma liste d'utilisateurs \(self.listeUsr)")
+                let max : Int =  testtab.count - 1
                 
                 
+                for index in 0...max{
+                    let emailDTO = json[index]["email"] as! String
+                    let nomDTO = json[index]["nom"] as! String
+                    let prenomDTO = json[index]["prenom"] as! String
+                    
+                    self.listeUsr += [UtilisateurDTO(nom : nomDTO, prenom : prenomDTO, email : emailDTO, localisation: CLLocationCoordinate2D())]
+                    
+                }
                 
                 
             } catch let error as JSONError {
@@ -160,14 +163,14 @@ class AjouterAmiTableViewController: UITableViewController, UISearchResultsUpdat
     }
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        
         return self.amisFiltres.count
-        
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell
     {
         let cell = UITableViewCell()
+         if (tableView != self.tableView){
+            
         
         cell.textLabel?.text = self.amisFiltres[indexPath.row].prenom + " " + self.amisFiltres[indexPath.row].nom
         
@@ -180,8 +183,9 @@ class AjouterAmiTableViewController: UITableViewController, UISearchResultsUpdat
         if(Utilisateur.userSingleton.mesAmis.mesAmis.contains({ $0.email == self.amisFiltres[indexPath.row].email })){
             let dejaAmis : UILabel = UILabel()
             dejaAmis.text = "Déjà amis"
-            dejaAmis.font = UIFont (name: "Chalkboard SE Regular 2", size: 16)
-            dejaAmis.frame = CGRectMake(250,10,100,25)
+            dejaAmis.font = UIFont(name:"Chalkboard SE", size:16)
+            dejaAmis.textColor = UIColor.grayColor()
+            dejaAmis.frame = CGRectMake(270,10,100,25)
             cell.addSubview(dejaAmis)
             
         }else{
@@ -191,10 +195,14 @@ class AjouterAmiTableViewController: UITableViewController, UISearchResultsUpdat
             // button.setValue(self.amisFiltres[indexPath.row], forKey: "friendToAdd")
             button.tag = indexPath.row
             button.addTarget(self, action: #selector(AjouterAmiTableViewController.buttonClicked(_:)), forControlEvents:UIControlEvents.TouchUpInside)
-            
-            
-            
+
             cell.addSubview(button)
+        }
+        
+        // Custumisation de la cellule
+        
+        cell.textLabel?.font = UIFont(name:"Chalkboard SE", size:16)
+        cell.textLabel?.textColor = UIColor.orangeColor()
         }
         return cell
     }
@@ -208,9 +216,7 @@ class AjouterAmiTableViewController: UITableViewController, UISearchResultsUpdat
         
         // On fait la session
         
-        
-        print("email du user connecte" + Utilisateur.userSingleton.email)
-        print("email de l'ami a ajouter" + usr.email)
+      
         let postEndpoint: String = "http://5.51.52.0:8080/locateyourfriendJAVA/rest/appli/addAmis?user1=\(Utilisateur.userSingleton.email)&user2=\(usr.email)"
         
         let url = NSURL(string: postEndpoint)!
@@ -265,30 +271,13 @@ class AjouterAmiTableViewController: UITableViewController, UISearchResultsUpdat
                 
                 
                 if(json["errorMessage"] != nil){
-                    
-                    
-                    return
+                    print("L'ajout d'ami n'a pas pu se faire : \(json["errorMessage"])")
                 }else{
                     // On met à jour notre utilisateur
-                    print("on met à jour")
+                    Utilisateur.userSingleton.configureUserSingleton(json as! [String : AnyObject])
                     
-                        let testtab : NSArray! = json["mesAmis"]!["listUtil"] as! NSArray
-                        //let teststring : NSArray! = json["mesAmis"]!["listUtil"]!![0]["email"] as! NSArray
-                        let max : Int =  testtab.count - 1
-                        var teststring : String! = json["mesAmis"]!["listUtil"]!![0]["email"] as! String
-                        
-                        for index in 0...max{
-                            teststring = json["mesAmis"]!["listUtil"]!![index]["email"] as! String
-                            print(teststring)
-                        }
-                        
-                    //print("ma liste est est nulle ? \(json["mesAmis"]!["listUtil"]!![0]["email"])")
-                    //Utilisateur.userSingleton.configureUserSingleton(json as! [String : AnyObject])
-                    
-                    
-                    // On redirige vers la liste d'amis
-                    
-                    
+                    // On redirige
+                     self.dismissViewControllerAnimated(true, completion: nil)
                 }
                 
                 

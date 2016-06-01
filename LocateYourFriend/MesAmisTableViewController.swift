@@ -25,8 +25,7 @@ class MesAmisTableViewController: UITableViewController, UISearchResultsUpdating
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        print("nombre d'amis : \(usr.mesAmis.mesAmis.count)")
+    
         
         if self.revealViewController() != nil {
             menuButton.target = self.revealViewController()
@@ -46,18 +45,7 @@ class MesAmisTableViewController: UITableViewController, UISearchResultsUpdating
         // Pour enlever l'espace du dessus
         definesPresentationContext = true
         
-        
-       /* usr.mesAmis.mesAmis += [UtilisateurDTO(nom: "DUPONT",prenom: "Laura",email: "laura.dupont@gmail.com", localisation: CLLocationCoordinate2DMake(48.95,2.3833))]
-           usr.mesAmis.mesAmis += [UtilisateurDTO(nom: "MARTIN",prenom: "Laura",email: "laura.dupont@gmail.com", localisation: CLLocationCoordinate2DMake(48.95,2.3833))]
-           usr.mesAmis.mesAmis += [UtilisateurDTO(nom: "ZITOUN",prenom: "khaoula",email: "laura.dupont@gmail.com", localisation: CLLocationCoordinate2DMake(48.95,2.3833))]*/
-        
-        
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem()
-    }
+        }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
@@ -96,8 +84,7 @@ class MesAmisTableViewController: UITableViewController, UISearchResultsUpdating
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell
     {
         let cell = UITableViewCell()
-        
-        //var ami : UtilisateurDTO
+        print("le nb delements\(self.usr.mesAmis.mesAmis.count) ")
         
         if (tableView != self.tableView){
             cell.textLabel?.text = self.amisFiltres[indexPath.row].prenom + " " + self.amisFiltres[indexPath.row].nom
@@ -105,6 +92,10 @@ class MesAmisTableViewController: UITableViewController, UISearchResultsUpdating
             cell.textLabel?.text =  self.usr.mesAmis.mesAmis[indexPath.row].prenom + " " + self.usr.mesAmis.mesAmis[indexPath.row].nom
         }
         
+        // Custumisation de la cellule
+        
+        cell.textLabel?.font = UIFont(name:"Chalkboard SE", size:16)
+        cell.textLabel?.textColor = UIColor.orangeColor()
         return cell
     }
     

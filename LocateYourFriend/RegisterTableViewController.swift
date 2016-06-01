@@ -17,6 +17,9 @@ class RegisterTableViewController: UITableViewController {
     @IBOutlet weak var userNameTextField: UITextField!
     
     
+    @IBAction func jaiUnCompte(sender: AnyObject) {
+   dismissViewControllerAnimated(true, completion: nil)
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -133,17 +136,19 @@ class RegisterTableViewController: UITableViewController {
                 print(json)
                 
                 
-                if(json["error"] != nil){
-                   self.afficheMessageAlert("L'inscription n'a pas pu être effectuée, \(json["error"])")
-                   return
+                if(json["errorMessage"] != nil){
+                    print("Erreur lors de l'inscription : \(json["errorMessage"])")
+                   
                 }else{
+                    NSUserDefaults.standardUserDefaults().setBool(true, forKey: "inscriptionConfig")
                     Utilisateur.userSingleton.configureUserSingleton(json as! [String : AnyObject]) 
                     NSUserDefaults.standardUserDefaults().setBool(true, forKey: "isUserLogin")
+                     NSUserDefaults.standardUserDefaults().setBool(false, forKey: "inscriptionConfig")
+                    
+                     let isInscription = NSUserDefaults.standardUserDefaults().boolForKey("inscriptionConfig")
+                    print("isInscription : \(isInscription)")
                     self.dismissViewControllerAnimated(true, completion: nil)
                     
-                    /*let defaults = NSUserDefaults.standardUserDefaults()
-                    let defaultValue = ["monEmail" : Utilisateur.utilisateur.email]
-                    defaults.registerDefaults(defaultValue)*/
                     
                 }
                 

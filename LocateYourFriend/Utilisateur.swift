@@ -25,27 +25,40 @@ class Utilisateur {
         if (param["prenom"] != nil ){prenom = param["prenom"]! as! String}
         if (param["email"] != nil ){email = param["email"]! as! String}
         if (param["motDePasse"] != nil ){motDePasse = param["motDePasse"]! as! String}
+        mesAmis = Amis()
         
-        if(param["mesAmis"] == nil){
-            print("on est dans listeutil is null")
-            mesAmis = Amis()
+        let isInscription = NSUserDefaults.standardUserDefaults().boolForKey("inscriptionConfig")
+        print("isinscrio dans utilisateur :\(isInscription)")
+       
+        if(!isInscription){
+            
+            print("ce n'est pas inscription")
+            if(param["mesAmis"]!["listUtil"] != nil){
         
-        }else{
-            //print("on met a jour la liste d'amis : \(param["mesAmis"])")
+            print("on est dans le if")
             
             
-            //mesAmis = Amis(mesAmis: param["mesAmis"]!["listUtil"]! as![UtilisateurDTO])
-            //print("on est apres la mise à jour")
+            let testtab : NSArray! = param["mesAmis"]!["listUtil"] as! NSArray
+        
+            let max : Int =  testtab.count - 1
+            
+            
+            for index in 0...max{
+                let emailDTO = param["mesAmis"]!["listUtil"]!![index]["email"] as! String
+                let nomDTO = param["mesAmis"]!["listUtil"]!![index]["nom"] as! String
+                let prenomDTO = param["mesAmis"]!["listUtil"]!![index]["prenom"] as! String
+                
+                self.mesAmis.mesAmis += [UtilisateurDTO(nom : nomDTO, prenom : prenomDTO, email : emailDTO, localisation: CLLocationCoordinate2D())]
+                
+            }
+
+        }
         }
         
-        //print'"Mes valeurs reçue"'
         
         SetFirstNSUserDefaultsForUser()
         SetNsUserDefaultsForUser(nom, prenomUser: prenom, emailUser: email, mdpUser: motDePasse)
-    
-        //Pour la lire la valeur associé à la clé
-        //let defaults = NSUserDefaults.standardUserDefaults()
-        //let token : String = defaults.stringForKey("MyKey")!
+
         
     }
     
