@@ -17,20 +17,20 @@ class MapViewController: UIViewController,MKMapViewDelegate, CLLocationManagerDe
     let locationManager = CLLocationManager()
     var usr = Utilisateur.userSingleton
     var comparedPositionCCL : CLLocationCoordinate2D = CLLocationCoordinate2D()
-    let isUserLoggedIn = NSUserDefaults.standardUserDefaults().boolForKey("isUserLogin")
+    //let isUserLoggedIn = NSUserDefaults.standardUserDefaults().boolForKey("isUserLogin")
+    //let partagePosition = NSUserDefaults.standardUserDefaults().boolForKey("partagePosition")
     var removedAnnotations = [MKPointAnnotation()]
 
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        //On récupère la valeur de la clé isUserLogin pour savoir si l'utilisateur est connecté
         
-       // print(isUserLoggedIn)
+        //On récupère la valeur de la clé isUserLogin pour savoir si l'utilisateur est connecté
         
         //S'il n'est pas connecté, on le redirige vers la page de connexion
         
-        if !isUserLoggedIn
+        if !NSUserDefaults.standardUserDefaults().boolForKey("isUserLogin")
         {
             self.performSegueWithIdentifier("loginView", sender: self)
         }
@@ -53,46 +53,6 @@ class MapViewController: UIViewController,MKMapViewDelegate, CLLocationManagerDe
             
         }
         
-        //Pour afficher les amis
-        
-        //Liste factice d'amis
-        /*usr.mesAmis.mesAmis += [UtilisateurDTO(nom: "DUPONT",prenom: "Laura",email: "laura.dupont@gmail.com", localisation: CLLocationCoordinate2DMake(45.750000,4.850000))]//location Lyon
-        usr.mesAmis.mesAmis += [UtilisateurDTO(nom: "MARTIN",prenom: "Laura",email: "laura.dupont@gmail.com", localisation: CLLocationCoordinate2DMake(47.3590900,3.3852100))] //Location Varzy
-        usr.mesAmis.mesAmis += [UtilisateurDTO(nom: "ZITOUN",prenom: "khaoula",email: "laura.dupont@gmail.com", localisation: CLLocationCoordinate2DMake(48.95,2.3833))]*/
-       
-        //print(usr.mesAmis.mesAmis)//Pour afficher la liste crée
-        //print(usr.mesAmis.mesAmis[2].nom)
-        
-        /*for index in 0...2 {
-            print(usr.mesAmis.mesAmis[index].nom)
-        }*/
-        
-        //Affichage sur la map de mes amis
-        /*for ami in usr.mesAmis.mesAmis{
-            //let testannotation = MKPointAnnotation()
-            testannotation.title = ami.nom + " " + ami.prenom
-            testannotation.subtitle = "Votre ami est la !"
-            testannotation.coordinate = ami.localisation
-            
-            mapView.addAnnotation(testannotation)
-        }*/
-        
-        //Marquer ma position
-        /*let maPositionAnnotation = MKPointAnnotation()
-        maPositionAnnotation.title = "Vous"
-        maPositionAnnotation.subtitle = "Je suis la !"
-        maPositionAnnotation.coordinate = (locationManager.location?.coordinate)!
-        mapView.addAnnotation(maPositionAnnotation)*/
-        
-        /*func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-            let location = locations.last
-            
-            let center = CLLocationCoordinate2D(latitude: location!.coordinate.latitude, longitude: location!.coordinate.longitude)
-            let region = MKCoordinateRegion(center: center, span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01))
-            
-            self.map.setRegion(region, animated: true)
-        }*/
-        
         //Pour demander les nouvelles positions eventuelles de mes amis j'instancie un timer et je le lance
         
         let timer = NSTimer.scheduledTimerWithTimeInterval(10, target: self, selector: #selector(self.updateAmisPositions), userInfo: nil, repeats: true)
@@ -103,26 +63,108 @@ class MapViewController: UIViewController,MKMapViewDelegate, CLLocationManagerDe
     
     func updateAmisPositions(){//Fonction appellée à la fin du timer
         
-        if isUserLoggedIn != false{
+        if NSUserDefaults.standardUserDefaults().boolForKey("isUserLogin") != false{
             
-            //print("coucou if")
-            
+            print("coucou if")
             //print("Ca fait 10 secondes")
             
             //Je supprimes les anciennes annotations si il y en a
-            
             //Pour supprimer des annotations
+            
             mapView.removeAnnotations(removedAnnotations)
             
             //Je recupere mes positions amis via une requete
             //get.Amis
+            //faire un if position amis == 0 pour savoir si ils sont connecté
+            
+            
+            //REQUETE JE DEMANDE AU SERVEUR MES AMIS POUR AVOIR LEUR POSITIONS
+            
+            // On fait la session
+            
+            print("recup coordonées amis")
+            
+            let postEndpoint: String = "http://172.20.10.9:8080/locateyourfriendJAVA/rest/appli/listeAmis"
+            
+            let url = NSURL(string: postEndpoint)!
+            
+            let session = NSURLSession.sharedSession()
+            
+            let postParams : [String: AnyObject] = ["email":Utilisateur.userSingleton.email, "motDePasse":Utilisateur.userSingleton.motDePasse,"nom":Utilisateur.userSingleton.nom,"prenom":Utilisateur.userSingleton.prenom]
+            
+            
+            // On créé la requete
+            
+            let request = NSMutableURLRequest(URL: url)
+            
+            request.HTTPMethod = "POST"
+            
+            request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")
+            
+            do {
+                
+                request.HTTPBody = try NSJSONSerialization.dataWithJSONObject(postParams, options: NSJSONWritingOptions())
+                
+            } catch {
+                
+                print("bad things happened")
+                
+            }
+            
+            // On appelle le post
+            
+            session.dataTaskWithRequest(request) { (data, response, error) in
+                do {
+                    
+                    // On vérifie qu'on recoit une reponse et qu'on se connecte bien au serveur
+                    
+                    guard let realResponse = response as? NSHTTPURLResponse where
+                        
+                        realResponse.statusCode == 200 else {
+                            print("Ce n'est pas une réponse 200 -> Connexion au serveur ECHOUEE")
+                            return
+                    }
+                    
+                    guard let data = data else {
+                        throw JSONError.NoData
+                    }
+                    guard let json = try NSJSONSerialization.JSONObjectWithData(data, options: []) as? NSDictionary else {
+                        throw JSONError.ConversionFailed
+                    }
+                    print(json)
+                    
+                    
+                    if(json["error"] != nil){
+                        //self.afficheMessageAlert("L'inscription n'a pas pu être effectuée, \(json["error"])")
+                        return
+                    }else{
+                        
+                        
+                        //print("ma liste d'utilisateurs \(json["Amis"]!["listUtil"])")
+                        
+                        
+                        //Utilisateur.utilisateur.configureUtilisateur(json as! [String : AnyObject]) //Problème à regler
+                        //NSUserDefaults.standardUserDefaults().setBool(true, forKey: "isUserLogin")
+                        //self.dismissViewControllerAnimated(true, completion: nil)
+                        //print("OK")
+                        
+                    }
+                    
+                    
+                } catch let error as JSONError {
+                    print(error.rawValue)
+                    print("on est dans le premier catch")
+                } catch let error as NSError {
+                    print(error.debugDescription)
+                    print("on est dans le deuxieme catch")
+                }
+                }.resume()
+
+            
+            
+            
             
             //Et les inser dans mon user singleton
-            
-            //Liste factice d'amis qui change a chaque appel
-         /*   usr.mesAmis.mesAmis += [UtilisateurDTO(nom: "DUPONT",prenom: "Laura",email: "laura.dupont@gmail.com", localisation: CLLocationCoordinate2DMake(44.750000,5.850000))]//location Lyon
-            usr.mesAmis.mesAmis += [UtilisateurDTO(nom: "MARTIN",prenom: "Laura",email: "laura.dupont@gmail.com", localisation: CLLocationCoordinate2DMake(46.3590900,2.3852100))] //Location Varzy
-            usr.mesAmis.mesAmis += [UtilisateurDTO(nom: "ZITOUN",prenom: "khaoula",email: "laura.dupont@gmail.com", localisation: CLLocationCoordinate2DMake(49.95,3.3833))]*/
             
             //J'ajoute mes positions en annotations
             var UpdatedAnnotations = [MKPointAnnotation()]
@@ -140,7 +182,7 @@ class MapViewController: UIViewController,MKMapViewDelegate, CLLocationManagerDe
             
             mapView.addAnnotations(UpdatedAnnotations)
             
-            //Je stocke ces annotations pour pouvoir les supprimer
+            //Je stocke ces annotations pour pouvoir les supprimer à la prochaine update de position
             
             removedAnnotations = UpdatedAnnotations
             
@@ -158,128 +200,118 @@ class MapViewController: UIViewController,MKMapViewDelegate, CLLocationManagerDe
     //Pour afficher ma position actuelle
     
     func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        //var compareValue : CLLocationCoordinate2D
-        
-        //UpdateLocation sans le controle d'envoi de position
-        //let locValueCCL:CLLocationCoordinate2D = manager.location!.coordinate
-        //let maLocalisationActuelle = Localisation(localisation: locValueCCL)
-        //Et enlever la requête du if
-        
         
         let locValueCCL:CLLocationCoordinate2D = manager.location!.coordinate
-        let maLocActuelle = Localisation(localisation: locValueCCL)
-        let maDerniereLoc = Localisation(localisation: comparedPositionCCL)
         
-       // print(comparedPositionCCL)
+        print(comparedPositionCCL)
+        print(locValueCCL)
         
         if(comparedPositionCCL.latitude == 0.0 && comparedPositionCCL.longitude == 0.0){
             comparedPositionCCL = locValueCCL
+            print("if compared == 00")
         }
-        
-     /*   print("Ma derniere localisation : " + String(maDerniereLoc.latitudeLoc) + "," + String(maDerniereLoc.longitudeLoc))
-        print("Ma nouvelle position : " + String(maLocActuelle.latitudeLoc) + "," + String(maLocActuelle.longitudeLoc) )*/
-        
-        
-        if(maDerniereLoc.latitudeLoc != maLocActuelle.latitudeLoc || maDerniereLoc.longitudeLoc != maLocActuelle.longitudeLoc){
-            let difflatitude : Float = abs(maDerniereLoc.latitudeLoc - maLocActuelle.latitudeLoc)
-            let difflongitude : Float = abs(maDerniereLoc.longitudeLoc - maLocActuelle.longitudeLoc)
-            let diffMax : Float = 0.00010 //10 mètres
+        if(comparedPositionCCL.latitude != locValueCCL.latitude || comparedPositionCCL.longitude != locValueCCL.longitude){
             
-          /*  print(difflongitude)
-            print( abs(difflongitude))
-            print(diffMax)*/
+            print("if compared != local")
             
-            if( difflatitude > diffMax || difflongitude > diffMax){
+            print("bool partagePosition : ")
+            print(NSUserDefaults.standardUserDefaults().boolForKey("partagePosition"))
+            print("bool isUserlogin : ")
+            print(NSUserDefaults.standardUserDefaults().boolForKey("isUserLogin"))
+             
+             //send au serveur puisque cette fonction est executé a chaque changement de positions
             
-                //send au serveur puisque cette fonction est executé a chaque changement de positions
+            if(NSUserDefaults.standardUserDefaults().boolForKey("isUserLogin") == true && NSUserDefaults.standardUserDefaults().boolForKey("isUserLogin") == true){
                 
-                let isUserLoggedIn = NSUserDefaults.standardUserDefaults().boolForKey("isUserLogin")
+                //REQUETE ENVOI MA LOCALISATION POUR LE SERVEUR
+                // On fait la session
                 
-                if(isUserLoggedIn == true){
+                print("envoie coordonées")
+                
+                let postEndpoint: String = "http://172.20.10.9:8080/locateyourfriendJAVA/rest/appli/localisation/"
+                
+                let url = NSURL(string: postEndpoint)!
+                
+                let session = NSURLSession.sharedSession()
+                
+                let postParams : [String: AnyObject] = ["email":Utilisateur.userSingleton.email, "motDePasse":Utilisateur.userSingleton.motDePasse,"nom":Utilisateur.userSingleton.nom,"prenom":Utilisateur.userSingleton.prenom, "latitude": locValueCCL.latitude/*maLocActuelle.latitudeLoc*/, "longitude": locValueCCL.longitude/*maLocActuelle.longitudeLoc*/]
+                
+                
+                // On créé la requete
+                
+                let request = NSMutableURLRequest(URL: url)
+                
+                request.HTTPMethod = "POST"
+                
+                request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")
+                
+                do {
                     
-                    // On fait la session
+                    request.HTTPBody = try NSJSONSerialization.dataWithJSONObject(postParams, options: NSJSONWritingOptions())
                     
-                    let postEndpoint: String = "http://5.51.52.0:8080/locateyourfriendJAVA/rest/appli/localisation/"
+                } catch {
                     
-                    let url = NSURL(string: postEndpoint)!
+                    print("bad things happened")
                     
-                    let session = NSURLSession.sharedSession()
-                    
-                    let postParams : [String: AnyObject] = ["email":"test@test.fr", "motDePasse":Utilisateur.userSingleton.motDePasse,"nom":Utilisateur.userSingleton.nom,"prenom":Utilisateur.userSingleton.prenom, "latitude": maLocActuelle.latitudeLoc, "longitude": maLocActuelle.longitudeLoc]
-                    
-                    
-                    // On créé la requete
-                    
-                    let request = NSMutableURLRequest(URL: url)
-                    
-                    request.HTTPMethod = "POST"
-                    
-                    request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")
-                    
+                }
+                
+                // On appelle le post
+                
+                session.dataTaskWithRequest(request) { (data, response, error) in
                     do {
                         
-                        request.HTTPBody = try NSJSONSerialization.dataWithJSONObject(postParams, options: NSJSONWritingOptions())
+                        // On vérifie qu'on recoit une reponse et qu'on se connecte bien au serveur
                         
-                    } catch {
-                        
-                        print("bad things happened")
-                        
-                    }
-                    
-                    // On appelle le post
-                    
-                    session.dataTaskWithRequest(request) { (data, response, error) in
-                        do {
+                        guard let realResponse = response as? NSHTTPURLResponse where
                             
-                            // On vérifie qu'on recoit une reponse et qu'on se connecte bien au serveur
-                            
-                            guard let realResponse = response as? NSHTTPURLResponse where
-                                
-                                realResponse.statusCode == 200 else {
-                                    print("Ce n'est pas une réponse 200 -> Connexion au serveur ECHOUEE")
-                                    return
-                            }
-                            
-                            guard let data = data else {
-                                throw JSONError.NoData
-                            }
-                            guard let json = try NSJSONSerialization.JSONObjectWithData(data, options: []) as? NSDictionary else {
-                                throw JSONError.ConversionFailed
-                            }
-                           // print(json)
-                            
-                            
-                            if(json["error"] != nil){
-                                //self.afficheMessageAlert("L'inscription n'a pas pu être effectuée, \(json["error"])")
+                            realResponse.statusCode == 200 else {
+                                print("Ce n'est pas une réponse 200 -> Connexion au serveur ECHOUEE")
                                 return
-                            }else{
-                                //Utilisateur.utilisateur.configureUtilisateur(json as! [String : AnyObject]) //Problème à regler
-                                //NSUserDefaults.standardUserDefaults().setBool(true, forKey: "isUserLogin")
-                                //self.dismissViewControllerAnimated(true, completion: nil)
-                                //print("OK")
-                                
-                            }
-                            
-                            
-                        } catch let error as JSONError {
-                            print(error.rawValue)
-                            print("on est dans le premier catch")
-                        } catch let error as NSError {
-                            print(error.debugDescription)
-                            print("on est dans le deuxieme catch")
                         }
-                        }.resume()
-                    
-                    comparedPositionCCL = locValueCCL
-                    
-                }//Fin if(isUserLoggedIn == true)
+                        
+                        guard let data = data else {
+                            throw JSONError.NoData
+                        }
+                        guard let json = try NSJSONSerialization.JSONObjectWithData(data, options: []) as? NSDictionary else {
+                            throw JSONError.ConversionFailed
+                        }
+                        // print(json)
+                        
+                        
+                        if(json["error"] != nil){
+                            //self.afficheMessageAlert("L'inscription n'a pas pu être effectuée, \(json["error"])")
+                            return
+                        }else{
+                            //Utilisateur.utilisateur.configureUtilisateur(json as! [String : AnyObject]) //Problème à regler
+                            //NSUserDefaults.standardUserDefaults().setBool(true, forKey: "isUserLogin")
+                            //self.dismissViewControllerAnimated(true, completion: nil)
+                            //print("OK")
+                            
+                        }
+                        
+                        
+                    } catch let error as JSONError {
+                        print(error.rawValue)
+                        print("on est dans le premier catch")
+                    } catch let error as NSError {
+                        print(error.debugDescription)
+                        print("on est dans le deuxieme catch")
+                    }
+                    }.resume()
                 
-            }// Fin if( difflatitude > diffMax || difflongitude > diffMax)
-        
-        }// Fin if(maDerniereLoc.latitudeLoc != maLocActuelle.latitudeLoc || maDerniereLoc.longitudeLoc != maLocActuelle.longitudeLoc)
+                //comparedPositionCCL = locValueCCL
+                
+            }//Fin if(isUserLoggedIn == true)
+            
+            // }// Fin if( difflatitude > diffMax || difflongitude > diffMax)
+            
+            //}// Fin if(maDerniereLoc.latitudeLoc != maLocActuelle.latitudeLoc || maDerniereLoc.longitudeLoc != maLocActuelle.longitudeLoc)
+            
+            comparedPositionCCL = locValueCCL
+        }
         
     }
-        
+    
     
     
     override func didReceiveMemoryWarning() {
@@ -295,6 +327,86 @@ class MapViewController: UIViewController,MKMapViewDelegate, CLLocationManagerDe
     
     
     @IBAction func deconnexionAction(sender: AnyObject) {
+        
+        //QUand l'utilisateur se deconnexte il envoie en terme de localisation, une localisation à zero, comme ça lorqu'on le recoit si localisation ami == 0 il est deconnecté on ne l'affiche pas.
+        
+        // On fait la session
+        
+        print("envoie coordonées fon de connexion ")
+        
+        let postEndpoint: String = "http://172.20.10.9:8080/locateyourfriendJAVA/rest/appli/localisation/"
+        
+        let url = NSURL(string: postEndpoint)!
+        
+        let session = NSURLSession.sharedSession()
+        
+        let postParams : [String: AnyObject] = ["email":Utilisateur.userSingleton.email, "motDePasse":Utilisateur.userSingleton.motDePasse,"nom":Utilisateur.userSingleton.nom,"prenom":Utilisateur.userSingleton.prenom, "latitude": 0, "longitude": 0]
+        
+        
+        // On créé la requete
+        
+        let request = NSMutableURLRequest(URL: url)
+        
+        request.HTTPMethod = "POST"
+        
+        request.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")
+        
+        do {
+            
+            request.HTTPBody = try NSJSONSerialization.dataWithJSONObject(postParams, options: NSJSONWritingOptions())
+            
+        } catch {
+            
+            print("bad things happened")
+            
+        }
+        
+        // On appelle le post
+        
+        session.dataTaskWithRequest(request) { (data, response, error) in
+            do {
+                
+                // On vérifie qu'on recoit une reponse et qu'on se connecte bien au serveur
+                
+                guard let realResponse = response as? NSHTTPURLResponse where
+                    
+                    realResponse.statusCode == 200 else {
+                        print("Ce n'est pas une réponse 200 -> Connexion au serveur ECHOUEE")
+                        return
+                }
+                
+                guard let data = data else {
+                    throw JSONError.NoData
+                }
+                guard let json = try NSJSONSerialization.JSONObjectWithData(data, options: []) as? NSDictionary else {
+                    throw JSONError.ConversionFailed
+                }
+                // print(json)
+                
+                
+                if(json["error"] != nil){
+                    //self.afficheMessageAlert("L'inscription n'a pas pu être effectuée, \(json["error"])")
+                    return
+                }else{
+                    //Utilisateur.utilisateur.configureUtilisateur(json as! [String : AnyObject]) //Problème à regler
+                    //NSUserDefaults.standardUserDefaults().setBool(true, forKey: "isUserLogin")
+                    //self.dismissViewControllerAnimated(true, completion: nil)
+                    //print("OK")
+                    
+                }
+                
+                
+            } catch let error as JSONError {
+                print(error.rawValue)
+                print("on est dans le premier catch")
+            } catch let error as NSError {
+                print(error.debugDescription)
+                print("on est dans le deuxieme catch")
+            }
+            }.resume()
+
+        
+        
         NSUserDefaults.standardUserDefaults().setBool(false, forKey: "isUserLogin")
         NSUserDefaults.standardUserDefaults().setBool(false, forKey: "inscriptionConfig")
         self.performSegueWithIdentifier("loginView", sender: self)
@@ -303,26 +415,6 @@ class MapViewController: UIViewController,MKMapViewDelegate, CLLocationManagerDe
         Utilisateur.userSingleton.SetEmptyNsUserDefaultsForUser()
         
     }
-    
-    
-    /* func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation])
-     {
-     let location = locations.last
-     
-     let center = CLLocationCoordinate2D(latitude: location!.coordinate.latitude, longitude: location!.coordinate.longitude)
-     
-     let region = MKCoordinateRegion(center: center, span: MKCoordinateSpan(latitudeDelta: 1, longitudeDelta: 1))
-     
-     self.mapView.setRegion(region, animated: true)
-     
-     self.locationManager.stopUpdatingLocation()
-     }
-     
-     func locationManager(manager: CLLocationManager, didFailWithError error: NSError)
-     {
-     print("Errors: " + error.localizedDescription)
-     }*/
-    
     
 }
 

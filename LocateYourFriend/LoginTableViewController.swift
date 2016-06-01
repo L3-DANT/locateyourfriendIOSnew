@@ -16,6 +16,10 @@ class LoginTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+
+    }
+    
+    override func viewDidAppear(animated: Bool) {
         
         let defaults = NSUserDefaults.standardUserDefaults()
         
@@ -31,16 +35,17 @@ class LoginTableViewController: UITableViewController {
         defaults.registerDefaults(defaultValuePartagePosition)
         
         defaults.synchronize()
-    }
-    
-    override func viewDidAppear(animated: Bool) {
+
         
-        let isUserLoggedIn = NSUserDefaults.standardUserDefaults().boolForKey("isUserLogin")
+        //let isUserLoggedIn = NSUserDefaults.standardUserDefaults().boolForKey("isUserLogin")
         
-        if isUserLoggedIn{
+        if NSUserDefaults.standardUserDefaults().boolForKey("isUserLogin"){
             self.dismissViewControllerAnimated(true, completion: nil)
             
         }
+        
+        print(NSUserDefaults.standardUserDefaults().boolForKey("partagePosition"))
+        print(NSUserDefaults.standardUserDefaults().boolForKey("isUserLogin"))
     }
     
     override func didReceiveMemoryWarning() {
@@ -80,7 +85,7 @@ class LoginTableViewController: UITableViewController {
         
         /* CHANGER L URL UNE FOIS PRETE */
         
-        let postEndpoint: String = "http://5.51.52.0:8080/locateyourfriendJAVA/rest/appli/authentification"
+        let postEndpoint: String = "http://172.20.10.9:8080/locateyourfriendJAVA/rest/appli/authentification"
         
         let url = NSURL(string: postEndpoint)!
         
