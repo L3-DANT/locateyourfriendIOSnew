@@ -59,7 +59,7 @@ class ChangePasswordTableViewController: UITableViewController {
         
         /* CHANGER L URL UNE FOIS PRETE */
         
-        let postEndpoint: String = "http://localhost:8080/locateyourfriend/rest/bienvenue/bienvenueJSON"
+        let postEndpoint: String = "http://172.20.10.9:8080/locateyourfriend/rest/bienvenue/bienvenueJSON"
         
         let url = NSURL(string: postEndpoint)!
         

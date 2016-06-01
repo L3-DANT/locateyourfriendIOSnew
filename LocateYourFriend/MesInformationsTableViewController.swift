@@ -10,11 +10,9 @@ import UIKit
 
 class MesInformationsTableViewController: UITableViewController {
     @IBOutlet weak var emailField: UITextField!
-
     @IBOutlet weak var prenomField: UITextField!
     @IBOutlet weak var nomField: UITextField!
-    
-    
+    @IBOutlet weak var partagePosition: UISwitch!
     @IBOutlet weak var menuButton: UIBarButtonItem!
 
     var usr = Utilisateur.userSingleton
@@ -23,7 +21,24 @@ class MesInformationsTableViewController: UITableViewController {
         case NoData = "ERROR: no data"
         case ConversionFailed = "ERROR: conversion from JSON failed"
     }
-
+    
+    
+    
+    func stateChanged(switchState: UISwitch) {
+        if switchState.on {
+            
+            NSUserDefaults.standardUserDefaults().setBool(true, forKey: "partagePosition")
+            print("Switch ON")
+            
+            //myTextField.text = "The Switch is On"
+        } else {
+            NSUserDefaults.standardUserDefaults().setBool(false, forKey: "partagePosition")
+            //myTextField.text = "The Switch is Off"
+            print("Switch OFF")
+        }
+        
+    }
+    
     @IBAction func enregistrerModifs(sender: AnyObject) {
         
         let nom = nomField.text
@@ -50,7 +65,7 @@ class MesInformationsTableViewController: UITableViewController {
         
         /* CHANGER L URL UNE FOIS PRETE */
         
-        let postEndpoint: String = "http://localhost:8080/locateyourfriend/rest/bienvenue/bienvenueJSON"
+        let postEndpoint: String = "http://172.20.10.9:8080/locateyourfriendJAVA/rest/appli/modif"
         
         let url = NSURL(string: postEndpoint)!
         
@@ -141,6 +156,8 @@ class MesInformationsTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        partagePosition.addTarget(self, action: #selector(MesInformationsTableViewController.stateChanged(_:)), forControlEvents: UIControlEvents.ValueChanged)
         
         if self.revealViewController() != nil {
             menuButton.target = self.revealViewController()

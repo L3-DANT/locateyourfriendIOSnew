@@ -59,7 +59,7 @@ class AjouterAmiTableViewController: UITableViewController, UISearchResultsUpdat
         
         // On fait la session
         
-        let postEndpoint: String = "http://5.51.52.0:8080/locateyourfriendJAVA/rest/appli/getUsers"
+        let postEndpoint: String = "http://172.20.10.9:8080/locateyourfriendJAVA/rest/appli/getUsers"
         
         let url = NSURL(string: postEndpoint)!
         
